@@ -261,30 +261,30 @@ function generateModernFPTable() {
     
     tr.innerHTML = `
       <td class="border border-gray-300 p-2 text-xs font-semibold">${method}</td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-cu" data-row="${rowIndex}" data-col="0" min="0" onchange="calculateTotal('fp-cu', ${rowIndex})"></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-cu" data-row="${rowIndex}" data-col="1" min="0" onchange="calculateTotal('fp-cu', ${rowIndex})"></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-cu" data-row="${rowIndex}" data-col="2" min="0" onchange="calculateTotal('fp-cu', ${rowIndex})"></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input total-cell" data-table="fp-cu" data-row="${rowIndex}" data-col="t" readonly></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-napm" data-row="${rowIndex}" data-col="0" min="0" onchange="calculateTotal('fp-napm', ${rowIndex})"></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-napm" data-row="${rowIndex}" data-col="1" min="0" onchange="calculateTotal('fp-napm', ${rowIndex})"></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-napm" data-row="${rowIndex}" data-col="2" min="0" onchange="calculateTotal('fp-napm', ${rowIndex})"></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input total-cell" data-table="fp-napm" data-row="${rowIndex}" data-col="t" readonly></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-oa" data-row="${rowIndex}" data-col="0" min="0" onchange="calculateTotal('fp-oa', ${rowIndex})"></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-oa" data-row="${rowIndex}" data-col="1" min="0" onchange="calculateTotal('fp-oa', ${rowIndex})"></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-oa" data-row="${rowIndex}" data-col="2" min="0" onchange="calculateTotal('fp-oa', ${rowIndex})"></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input total-cell" data-table="fp-oa" data-row="${rowIndex}" data-col="t" readonly></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-do" data-row="${rowIndex}" data-col="0" min="0" onchange="calculateTotal('fp-do', ${rowIndex})"></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-do" data-row="${rowIndex}" data-col="1" min="0" onchange="calculateTotal('fp-do', ${rowIndex})"></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-do" data-row="${rowIndex}" data-col="2" min="0" onchange="calculateTotal('fp-do', ${rowIndex})"></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input total-cell" data-table="fp-do" data-row="${rowIndex}" data-col="t" readonly></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-cueo" data-row="${rowIndex}" data-col="0" min="0" onchange="calculateTotal('fp-cueo', ${rowIndex})"></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-cueo" data-row="${rowIndex}" data-col="1" min="0" onchange="calculateTotal('fp-cueo', ${rowIndex})"></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-cueo" data-row="${rowIndex}" data-col="2" min="0" onchange="calculateTotal('fp-cueo', ${rowIndex})"></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input total-cell" data-table="fp-cueo" data-row="${rowIndex}" data-col="t" readonly></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-napm2" data-row="${rowIndex}" data-col="0" min="0" onchange="calculateTotal('fp-napm2', ${rowIndex})"></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-napm2" data-row="${rowIndex}" data-col="1" min="0" onchange="calculateTotal('fp-napm2', ${rowIndex})"></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-napm2" data-row="${rowIndex}" data-col="2" min="0" onchange="calculateTotal('fp-napm2', ${rowIndex})"></td>
-      <td class="border border-gray-300 p-1"><input type="number" class="cell-input total-cell" data-table="fp-napm2" data-row="${rowIndex}" data-col="t" readonly></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-cu" data-row="${rowIndex}" data-col="0" min="0" onchange="calculateTotal('fp-cu', ${rowIndex})" name="fpcu[${rowIndex}][0]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-cu" data-row="${rowIndex}" data-col="1" min="0" onchange="calculateTotal('fp-cu', ${rowIndex})" name="fpcu[${rowIndex}][1]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-cu" data-row="${rowIndex}" data-col="2" min="0" onchange="calculateTotal('fp-cu', ${rowIndex})" name="fpcu[${rowIndex}][2]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input total-cell" data-table="fp-cu" data-row="${rowIndex}" data-col="t" readonly name="fpcu[${rowIndex}][3]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-napm" data-row="${rowIndex}" data-col="0" min="0" onchange="calculateTotal('fp-napm', ${rowIndex})" name="fpnapm[${rowIndex}][0]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-napm" data-row="${rowIndex}" data-col="1" min="0" onchange="calculateTotal('fp-napm', ${rowIndex})" name="fpnapm[${rowIndex}][1]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-napm" data-row="${rowIndex}" data-col="2" min="0" onchange="calculateTotal('fp-napm', ${rowIndex})" name="fpnapm[${rowIndex}][2]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input total-cell" data-table="fp-napm" data-row="${rowIndex}" data-col="t" readonly name="fpnapm[${rowIndex}][3]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-oa" data-row="${rowIndex}" data-col="0" min="0" onchange="calculateTotal('fp-oa', ${rowIndex})" name="fpoa[${rowIndex}][0]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-oa" data-row="${rowIndex}" data-col="1" min="0" onchange="calculateTotal('fp-oa', ${rowIndex})" name="fpoa[${rowIndex}][1]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-oa" data-row="${rowIndex}" data-col="2" min="0" onchange="calculateTotal('fp-oa', ${rowIndex})" name="fpoa[${rowIndex}][2]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input total-cell" data-table="fp-oa" data-row="${rowIndex}" data-col="t" readonly name="fpoa[${rowIndex}][3]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-do" data-row="${rowIndex}" data-col="0" min="0" onchange="calculateTotal('fp-do', ${rowIndex})" name="fpdo[${rowIndex}][0]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-do" data-row="${rowIndex}" data-col="1" min="0" onchange="calculateTotal('fp-do', ${rowIndex})" name="fpdo[${rowIndex}][1]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-do" data-row="${rowIndex}" data-col="2" min="0" onchange="calculateTotal('fp-do', ${rowIndex})" name="fpdo[${rowIndex}][2]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input total-cell" data-table="fp-do" data-row="${rowIndex}" data-col="t" readonly name="fpdo[${rowIndex}][3]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-cueo" data-row="${rowIndex}" data-col="0" min="0" onchange="calculateTotal('fp-cueo', ${rowIndex})" name="fpcueo[${rowIndex}][0]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-cueo" data-row="${rowIndex}" data-col="1" min="0" onchange="calculateTotal('fp-cueo', ${rowIndex})" name="fpcueo[${rowIndex}][1]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-cueo" data-row="${rowIndex}" data-col="2" min="0" onchange="calculateTotal('fp-cueo', ${rowIndex})" name="fpcueo[${rowIndex}][2]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input total-cell" data-table="fp-cueo" data-row="${rowIndex}" data-col="t" readonly name="fpcueo[${rowIndex}][3]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-napm2" data-row="${rowIndex}" data-col="0" min="0" onchange="calculateTotal('fp-napm2', ${rowIndex})" name="fpnapm2[${rowIndex}][0]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-napm2" data-row="${rowIndex}" data-col="1" min="0" onchange="calculateTotal('fp-napm2', ${rowIndex})" name="fpnapm2[${rowIndex}][1]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="fp-napm2" data-row="${rowIndex}" data-col="2" min="0" onchange="calculateTotal('fp-napm2', ${rowIndex})" name="fpnapm2[${rowIndex}][2]"></td>
+      <td class="border border-gray-300 p-1"><input type="number" class="cell-input total-cell" data-table="fp-napm2" data-row="${rowIndex}" data-col="t" readonly name="fpnapm2[${rowIndex}][3]"></td>
     `;
     tbody.appendChild(tr);
   });
@@ -301,33 +301,33 @@ function generateTableRows(tableId, indicators, table, ageGroups = null) {
     if (ageGroups === '3-age') {
       tr.innerHTML = `
         <td class="border border-gray-300 p-2 text-sm ${isSubItem ? 'pl-8 text-gray-700' : ''}">${indicator}</td>
-        <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="0" min="0" onchange="calculateTotal('${table}', ${rowIndex})"></td>
-        <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="1" min="0" onchange="calculateTotal('${table}', ${rowIndex})"></td>
-        <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="2" min="0" onchange="calculateTotal('${table}', ${rowIndex})"></td>
-        <td class="border border-gray-300 p-1"><input type="number" class="cell-input total-cell" data-table="${table}" data-row="${rowIndex}" data-col="t" readonly></td>
-        <td class="border border-gray-300 p-1"><input type="text" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="r"></td>
+        <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="0" min="0" onchange="calculateTotal('${table}', ${rowIndex})" name="${table}[${rowIndex}][0]"></td>
+        <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="1" min="0" onchange="calculateTotal('${table}', ${rowIndex})" name="${table}[${rowIndex}][1]"></td>
+        <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="2" min="0" onchange="calculateTotal('${table}', ${rowIndex})" name="${table}[${rowIndex}][2]"></td>
+        <td class="border border-gray-300 p-1"><input type="number" class="cell-input total-cell" data-table="${table}" data-row="${rowIndex}" data-col="t" readonly name="${table}[${rowIndex}][3]"></td>
+        <td class="border border-gray-300 p-1"><input type="text" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="r" name="${table}[${rowIndex}][r]"></td>
       `;
     } else if (ageGroups === 'single') {
       tr.innerHTML = `
         <td class="border border-gray-300 p-2 text-sm ${isSubItem ? 'pl-8 text-gray-700' : ''}">${indicator}</td>
-        <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="0" min="0"></td>
-        <td class="border border-gray-300 p-1"><input type="text" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="r"></td>
+        <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="0" min="0" name="${table}[${rowIndex}][0]"></td>
+        <td class="border border-gray-300 p-1"><input type="text" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="r" name="${table}[${rowIndex}][r]"></td>
       `;
     } else if (ageGroups === 'male-female') {
       tr.innerHTML = `
         <td class="border border-gray-300 p-2 text-sm ${isSubItem ? 'pl-8 text-gray-700' : ''}">${indicator}</td>
-        <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="m" min="0" onchange="calculateTotal2Cols('${table}', ${rowIndex})"></td>
-        <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="f" min="0" onchange="calculateTotal2Cols('${table}', ${rowIndex})"></td>
-        <td class="border border-gray-300 p-1"><input type="number" class="cell-input total-cell" data-table="${table}" data-row="${rowIndex}" data-col="t" readonly></td>
-        <td class="border border-gray-300 p-1"><input type="text" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="r"></td>
+        <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="m" min="0" onchange="calculateTotal2Cols('${table}', ${rowIndex})" name="${table}[${rowIndex}][m]"></td>
+        <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="f" min="0" onchange="calculateTotal2Cols('${table}', ${rowIndex})" name="${table}[${rowIndex}][f]"></td>
+        <td class="border border-gray-300 p-1"><input type="number" class="cell-input total-cell" data-table="${table}" data-row="${rowIndex}" data-col="t" readonly name="${table}[${rowIndex}][t]"></td>
+        <td class="border border-gray-300 p-1"><input type="text" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="r" name="${table}[${rowIndex}][r]"></td>
       `;
     } else {
       tr.innerHTML = `
         <td class="border border-gray-300 p-2 text-sm ${isSubItem ? 'pl-8 text-gray-700' : ''}">${indicator}</td>
-        <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="m" min="0" onchange="calculateTotal2Cols('${table}', ${rowIndex})"></td>
-        <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="f" min="0" onchange="calculateTotal2Cols('${table}', ${rowIndex})"></td>
-        <td class="border border-gray-300 p-1"><input type="number" class="cell-input total-cell" data-table="${table}" data-row="${rowIndex}" data-col="t" readonly></td>
-        <td class="border border-gray-300 p-1"><input type="text" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="r"></td>
+        <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="m" min="0" onchange="calculateTotal2Cols('${table}', ${rowIndex})" name="${table}[${rowIndex}][m]"></td>
+        <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="f" min="0" onchange="calculateTotal2Cols('${table}', ${rowIndex})" name="${table}[${rowIndex}][f]"></td>
+        <td class="border border-gray-300 p-1"><input type="number" class="cell-input total-cell" data-table="${table}" data-row="${rowIndex}" data-col="t" readonly name="${table}[${rowIndex}][t]"></td>
+        <td class="border border-gray-300 p-1"><input type="text" class="cell-input" data-table="${table}" data-row="${rowIndex}" data-col="r" name="${table}[${rowIndex}][r]"></td>
       `;
     }
     tbody.appendChild(tr);
@@ -367,9 +367,41 @@ function initializeTables() {
 function collectFormData() {
   const data = {};
   document.querySelectorAll('input[data-table]').forEach(input => {
-    const key = input.dataset.table + '-' + input.dataset.row + '-' + input.dataset.col;
-    data[key] = input.value;
+    const table = input.dataset.table;
+    const row = parseInt(input.dataset.row);
+    const col = input.dataset.col;
+    if (!data[table]) data[table] = [];
+    if (!data[table][row]) data[table][row] = {};
+    data[table][row][col] = input.value;
   });
+
+  Object.keys(data).forEach(table => {
+    data[table] = data[table].map(row => {
+      const keys = Object.keys(row).sort((a,b) => {
+        if (a === 't') return 1;
+        if (b === 't') return -1;
+        if (a === 'r') return 1;
+        if (b === 'r') return -1;
+        if (a === 'm') return -1;
+        if (b === 'm') return 1;
+        if (a === 'f') return -1;
+        if (b === 'f') return 1;
+        return parseInt(a) - parseInt(b);
+      });
+      return keys.map(key => row[key]);
+    });
+  });
+
+  // Display the data
+  console.log('Collected Form Data:');
+  Object.keys(data).forEach(table => {
+    console.log(`[${table}] => Array (`);
+    data[table].forEach((row, rowIndex) => {
+      console.log(`  [${rowIndex}] => Array ( ${row.map((val, colIndex) => `[${colIndex}] => ${val}`).join(' ')} )`);
+    });
+    console.log(')');
+  });
+
   return data;
 }
 

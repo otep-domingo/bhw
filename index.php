@@ -11,7 +11,7 @@
     <title>BHW Milagrosa</title>
 </head>
 <body>
-    <a href="pages/analytics.html">Go to Analytics</a>
+    <a href="pages/analytics.php">Go to Analytics</a>
     <a href="pages/mon-acc-report.html">Go to Monthly Accomplishment Report</a>
 </body>
 </html>
