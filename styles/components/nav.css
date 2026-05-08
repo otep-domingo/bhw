@@ -1,0 +1,10 @@
+.text-left {
+    padding-left: 2%;
+}
+h1.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+h1.sub-title {
+    font-size: 0.8rem;
+}

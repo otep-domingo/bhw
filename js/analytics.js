@@ -733,3 +733,33 @@ function initializeZeroValues() {
     }
   });
 }
+
+// New added functions
+function showTab(sectionId, clickedBtn) {
+
+  // Hide all sections
+  document.querySelectorAll('.tab-content').forEach(section => {
+    section.style.display = 'none';
+  });
+
+  // Remove active tab
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active-tab');
+  });
+
+  // Show selected section
+  document.getElementById(sectionId).style.display = 'block';
+
+  // Activate tab button
+  clickedBtn.classList.add('active-tab');
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+
+  document.querySelectorAll('.tab-content').forEach(section => {
+    section.style.display = 'none';
+  });
+
+  document.getElementById('section-a').style.display = 'block';
+
+});

@@ -18,10 +18,11 @@
     Figma
 
 ## Meet the Team
-- Backend Developer: Rivera, Vincent
+- Backend Developer: [Rivera, Vincent](https://github.com/B1ns3n7)
 - Backend Developer: [Legaspi, Marc Ace](https://github.com/mecsung/)
+- Backend Developer: [Joseph, Domingo](https://github.com/otep-domingo)
 - Frontend Developer: [Velasco, Abigail](https://github.com/velascoat/)
 - UI/UX Designer: Huerte, Felix
 - UI/UX Designer: Claudel, Jeruz
 - Project Manager: Dimla, Princess
-- Project Manager: Dela Cruz, Aira Leight
+- Project Manager: Dela Cruz, Aira Leigh

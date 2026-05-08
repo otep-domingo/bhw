@@ -1,0 +1,43 @@
+@import url('constants/colors.css');
+
+.sidebar-forms {
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+    width: 25%;
+    padding: 20px;
+    background-color: var(--color-white);
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.report-title, .ack-title {
+    color: var(--color-primary-text);
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-bottom: 1px solid var(--color-primary-text);
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+.report-info, .acknowledgement {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.report-info label, .acknowledgement label {
+    color: var(--color-label);
+    font-size: 0.8rem;
+}
+.report-info input, .acknowledgement input {
+    padding: 5px;
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    font-size: 0.8rem;
+}
+.month-year, .city-province {
+    display: flex;
+    gap: 10px;
+}
+.month-year input, .city-province input {
+    width: 50%;
+}

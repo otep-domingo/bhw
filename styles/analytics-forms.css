@@ -1,0 +1,51 @@
+.body-forms {
+    width: 75%;
+    /* background-color: var(--color-white);
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
+}
+
+.btn-sections {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.5%;
+    gap: 10px;
+}
+.btn-export {
+    display: flex;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid #D8D8D8;
+    gap: 5px;
+    font-size: 0.8rem;
+}
+.btn-export:hover {
+    background-color: var(--color-primary-text);
+    color: var(--color-white);
+    border-color: var(--color-primary-text);
+}
+.submit-report {
+    background-color: var(--color-primary-text);
+    color: var(--color-white);
+    border-color: var(--color-primary-text);
+}
+
+.tab-btn {
+    border: 1px solid #D8D8D8;
+    padding: 5px 10px;
+}
+.tab-btn:hover {
+    cursor: pointer;
+}
+.active-tab {
+    background-color: var(--color-primary-text);
+    color: var(--color-white);
+    border-color: var(--color-primary-text);
+}
+.tab-content {
+    border-radius: 0 10px !important;
+}
+.section-header {
+    color: var(--color-primary-text);
+}
+

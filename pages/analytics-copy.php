@@ -8,24 +8,67 @@
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  
   <script src="/_sdk/element_sdk.js"></script>
   <script src="/_sdk/data_sdk.js"></script>
-  <link rel="stylesheet" href="../styles/constants/fonts.css">
-  <link rel="stylesheet" href="../styles/analytics.css">
   <script src="../js/tailwindAnalytics.js"></script>
 
+  <link rel="stylesheet" href="../styles/constants/fonts.css">
+  <link rel="stylesheet" href="../styles/analytics.css">
+  <link rel="stylesheet" href="../styles/nav.css">
+  <link rel="stylesheet" href="../styles/sidebar.css">
+
 </head>
+
 <body class="h-full bg-gray-50">
   <div id="app-wrapper" class="h-full w-full overflow-auto">
-    <div class="max-w-full mx-auto p-4 md:p-6">
-      <header class="bg-primary text-white rounded-xl p-6 mb-6 shadow-lg">
-        <div class="text-center">
-          <h1 class="text-4xl md:text-5xl font-bold tracking-wider">M1BRGY</h1>
-          <p class="text-primary-light mt-2 text-lg font-semibold">Family Health Services Information System (FHSIS) Report</p>
-        </div>
-      </header>
+    <div class="max-w-full mx-auto">
+      <?php include('../components/nav.html'); ?>
 
       <div id="status-message" class="hidden mb-4 p-4 rounded-lg"></div>
+
+      <!-- SIDEBAR FORMS -->
+      <div class="sidebar-forms">
+        <div class="report-info">
+          <div class="report-title">Report Information</div>
+
+          <label for="month-year">FHSIS Report for:</label>
+          <div class="month-year" id="month-year">
+            <input type="text" name="month" class="month-int" placeholder="Month">
+            <input type="text" name="year" class="year-int" placeholder="Year">
+          </div>
+
+          <label for="brgy-name">Name of Baranggay:</label>
+          <input type="text" name="brgy-name" id="brgy-name" class="bgry-int" placeholder="Enter Name of Baranggay">
+
+          <label for="bhs-name">Name of BHS:</label>
+          <input type="text" name="bhs-name" id="bhs-name" class="bhs-int" placeholder="Enter Name of BHS">
+
+          <label for="city-province">City and Province:</label>
+          <div class="city-province" id="city-province">
+            <input type="text" name="city" class="city-int" placeholder="Enter City Name">
+            <input type="text" name="province" class="province-int" placeholder="Enter Province Name">
+          </div>
+
+          <label for="projected-population">Projected Population of the Year:</label>
+          <input type="number" name="population" id="projected-population" class="population-int" min="0">
+
+        </div>
+
+        <div class="acknowledgement">
+          <div class="ack-title">Acknowledgement</div>
+
+          <label for="prepared-by">Prepared by:</label>
+          <input type="text" name="prepared-by" id="prepared-by" class="prepared-int" placeholder="Enter name of person who prepared the report">
+
+          <label for="verified-by">Verified by:</label>
+          <input type="text" name="verified-by" id="verified-by" class="verified-int" placeholder="Enter name of person who verified the report">
+        
+          <label for="position">Position:</label>
+          <input type="text" name="position" id="position" class="position-int" placeholder="Enter position">
+        </div>
+
+      </div>
 
       <!-- REPORT HEADER SECTION -->
       <form action="../controller/analytics.php" method="POST" id="report-form">

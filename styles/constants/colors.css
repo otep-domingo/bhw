@@ -1,11 +1,15 @@
 :root {
+  --color-white: #fff;
   --color-primary: #15803D;
   --color-primary-dark: #166534;
+  --color-primary-text: #15803D;
   --color-primary-light: #6ee7b7;
   --color-border: #e5e7eb;
   --color-background: #f8fafc;
   --color-background-secondary: #f0fdf4;
+  --color-background-tertiary: #F2F3F4;
   --color-text: #111827;
   --color-label: #333;
-  --color-nput: #ddd;
+  --color-input: #ddd;
+  --color-label: #505050;
 }
