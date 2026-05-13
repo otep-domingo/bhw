@@ -83,6 +83,6 @@ input[type="number"] { -moz-appearance: textfield; }
     display: flex;
     flex-direction: row;
     gap: 20px;
-    height: 100vh;
+    height: 110vh;
     padding: 0 20px;
 }

@@ -7,10 +7,23 @@
 
 .btn-sections {
     display: flex;
+    justify-content: space-between;
+}
+#searchInput {
+    display: flex;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid #D8D8D8;
+    gap: 5px;
+    font-size: 0.8rem;
+}
+.right-buttons {
+    display: flex;
     justify-content: flex-end;
     margin-bottom: 1.5%;
     gap: 10px;
 }
+
 .btn-export {
     display: flex;
     padding: 10px 20px;
@@ -49,3 +62,23 @@
     color: var(--color-primary-text);
 }
 
+.title-next-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.save-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #E54624;
+    color: #FFF !important;
+    padding: 5px 15px;
+    border-radius: 5px;
+    gap: 5px;
+    font-size: 0.7rem;
+    transition: background-color 0.3s ease;
+}
+.save-section:hover {
+    background-color: #ba2605;
+}
