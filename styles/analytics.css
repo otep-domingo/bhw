@@ -86,3 +86,7 @@ input[type="number"] { -moz-appearance: textfield; }
     height: 110vh;
     padding: 0 20px;
 }
+
+.analytics-navbar {
+    background: var(--color-primary);
+}

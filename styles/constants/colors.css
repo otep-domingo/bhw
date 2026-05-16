@@ -4,6 +4,8 @@
   --color-primary-dark: #166534;
   --color-primary-text: #15803D;
   --color-primary-light: #6ee7b7;
+  --color-secondary-dark: #FACC15;
+  --color-secondary-light: #e8be15;
   --color-border: #e5e7eb;
   --color-background: #f8fafc;
   --color-background-secondary: #f0fdf4;
@@ -12,4 +14,5 @@
   --color-label: #333;
   --color-input: #ddd;
   --color-label: #505050;
+  --color-confirm-modal: #3EC49C;
 }

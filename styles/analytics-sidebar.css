@@ -48,15 +48,16 @@
 .create-new {
     display: flex;
     justify-content: center;
-    background-color: #FACC15;
+    background-color: var(--color-secondary-dark);
     padding: 10px 20px;
     border-radius: 5px;
     border: 1px solid #D8D8D8;
     gap: 5px;
     font-size: 0.8rem;
-    transition: background-color 0.3s ease;
+    transition: 0.3s ease;
+    cursor: pointer;
 }
 .create-new:hover {
     background-color: #e8be15;
-    /* transform: scale(1.05); */
+    scale: 1.05;
 }

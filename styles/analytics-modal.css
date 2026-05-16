@@ -1,0 +1,49 @@
+.modal-content {
+    border: none;
+}
+.close-btn {
+    position: absolute;
+    top: -30px;
+    padding: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.modal-header {
+    height: 150px;
+    background-color: var(--color-confirm-modal);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.confirm-save {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+.confirm-question {
+    font-size: 0.7rem;
+    color: var(--color-label);
+    text-align: center;
+    padding: 0 50px;
+}
+.continue-btn {
+    font-size: 0.8rem;
+    color: #000;
+    width: 140px;
+    height: 2.5rem;
+    border-radius: 20px;
+    border-color: var(--color-secondary-dark);
+    background-color: var(--color-secondary-dark);
+}
+.modal-footer {
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 8%;
+}
