@@ -90,3 +90,21 @@ input[type="number"] { -moz-appearance: textfield; }
 .analytics-navbar {
     background: var(--color-primary);
 }
+
+.header-sections {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2%;
+}
+.button-sections {
+    display: flex;
+    flex-direction: column;
+}
+.button-sections button {
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+.button-sections span {
+    align-self: flex-end;
+}

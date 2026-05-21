@@ -1,16 +1,3 @@
-
-/**
- * Collect all editable inputs/selects inside a <tbody> and return
- * an array of row-objects keyed by data-field attributes.
- *
- * Expected input markup (add these attributes to your generated cells):
- *   <input data-field="age_10_14" ...>
- *   <input data-field="remarks"   ...>
- * or any element with [data-field].
- *
- * Falls back to reading every <input>/<select>/<textarea> in order
- * if data-field is absent.
- */
 function collectTableRows(tbodyId) {
   const tbody = document.getElementById(tbodyId);
   if (!tbody) return [];
