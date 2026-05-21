@@ -1,3 +1,10 @@
+<?php
+  session_start();
+  require '../controller/search.php';
+
+  $month_year_id = $_SESSION['month_year_id'] ?? null;
+?>
+
 <!DOCTYPE html>
 <html lang="en" class="h-full">
 
@@ -9,6 +16,9 @@
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
   <script src="/_sdk/element_sdk.js"></script>
   <script src="/_sdk/data_sdk.js"></script>
@@ -19,6 +29,7 @@
   <link rel="stylesheet" href="../styles/components/nav.css">
   <link rel="stylesheet" href="../styles/analytics-sidebar.css">
   <link rel="stylesheet" href="../styles/analytics-forms.css">
+  <link rel="stylesheet" href="../styles/analytics-modal.css">
 
 </head>
 
@@ -26,6 +37,23 @@
   <div id="app-wrapper" class="h-full w-full overflow-auto">
     <div class="max-w-full mx-auto">
       <?php include('../components/nav.html'); ?>
+      <?php
+        if (isset($_SESSION['errors'])) {
+            echo "<div class='toast-container error-container'>";
+            echo "<span class='toast-close' onclick='closeToast(this)'>&times;</span>";
+            foreach ($_SESSION['errors'] as $error) {
+                echo "<div class='error-message'>$error</div>";
+            }
+            echo "</div>";
+            unset($_SESSION['errors']);
+        }
+        if (isset($_GET['success'])) {
+          echo "<div class='toast-container success-container'>";
+          echo "<span class='toast-close' onclick='closeToast(this)'>&times;</span>";
+          echo "Successfully created " . ($_SESSION['month_year_id'] ?? '') . " data";
+          echo "</div>";
+        }
+      ?>
 
       <div id="status-message" class="hidden mb-4 p-4 rounded-lg"></div>
 

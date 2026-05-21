@@ -1,16 +1,26 @@
 .body-forms {
     width: 75%;
-    /* background-color: var(--color-white);
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
 }
 
 .btn-sections {
+    display: flex;
+    justify-content: space-between;
+}
+#searchInput {
+    display: flex;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid #D8D8D8;
+    gap: 5px;
+    font-size: 0.8rem;
+}
+.right-buttons {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 1.5%;
     gap: 10px;
 }
+
 .btn-export {
     display: flex;
     padding: 10px 20px;
@@ -49,3 +59,135 @@
     color: var(--color-primary-text);
 }
 
+.title-next-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.save-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #E54624;
+    color: #FFF !important;
+    padding: 5px 15px;
+    border-radius: 5px;
+    gap: 5px;
+    font-size: 0.7rem;
+    transition: background-color 0.3s ease;
+}
+.save-section:hover {
+    background-color: #ba2605;
+}
+
+.outer-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 15%;
+}
+.title-selection {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-primary-text);
+}
+.subtitle-selection {
+    font-size: 0.9rem;
+    color: var(--color-label);
+}
+.container-selection {
+    margin-top: 5%;
+    display: flex;
+    gap: 1.5%;
+    position: relative;
+}
+.container-selection select {
+    height: 2.2rem;
+    width: 15rem;
+    border: 1px solid #D8D8D8;
+    border-radius: 7px;
+    font-size: 0.75rem;
+    padding: 0 2.5%;
+    color: var(--color-label);
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.container-selection select:focus {
+    border-color: var(--color-primary-text);
+    box-shadow: 0 0 5px rgba(0, 128, 0, 0.4);
+    outline: none;
+}
+
+.container-selection select option {
+    border: none;
+    background-color: var(--color-white);
+    color: var(--color-label);
+    border-radius: 10px !important;
+    margin-top: 20px;
+}
+option[disabled] {
+    color: gray;
+}
+.container-selection button {
+    background-color: var(--color-secondary-dark);
+    height: 2.2rem;
+    width: 2.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    color: var(--color-label);
+    transition: 0.3s ease;
+}
+.container-selection button:hover {
+    background-color: var(--color-secondary-light);
+    scale: 1.05;
+}
+.container-selection button svg {
+    height: 30%;
+}
+
+.toast-container {
+    position: fixed;
+    bottom: 3%;
+    right: 3%;
+    padding: 12px 35px 12px 15px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: white;
+    min-width: 220px;
+    z-index: 9999;
+    cursor: pointer;
+    pointer-events: auto;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    animation: fadeIn 0.3s ease;
+}
+.success-container {
+    background: rgba(46, 204, 113, 0.85); /* green transparent */
+}
+.error-container {
+    background: rgba(231, 76, 60, 0.85); /* red transparent */
+}
+.toast-close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    opacity: 0.8;
+}
+.toast-close:hover {
+    opacity: 1;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

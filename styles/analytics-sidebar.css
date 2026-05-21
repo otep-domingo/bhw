@@ -18,6 +18,9 @@
     border-bottom: 1px solid var(--color-primary-text);
     padding-bottom: 5px;
     margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 3%;
 }
 .report-info, .acknowledgement {
     display: flex;
@@ -40,4 +43,35 @@
 }
 .month-year input, .city-province input {
     width: 50%;
+}
+
+.create-new {
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-secondary-dark);
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid #D8D8D8;
+    gap: 5px;
+    font-size: 0.8rem;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+.create-new:hover {
+    background-color: #e8be15;
+    scale: 1.05;
+}
+
+label span {
+    color: red;
+}
+.month-int {
+    width: 50%;
+    border: 1px solid ;
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    font-size: 0.8rem;
+}
+.edit-button {
+    background-color: lightgray;
 }
