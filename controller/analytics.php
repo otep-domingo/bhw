@@ -2,12 +2,6 @@
     session_start();
     require '../model/connection.php';
 
-    if (isset($_POST['createNewReportInformation'])) {
-        $_SESSION['month_year_id'] = "";
-        session_destroy();
-        header("location: ../pages/analytics.php");
-    }
-
     if (isset($_POST['submitReportInformation'])) {
         $errors = array();
 
@@ -80,25 +74,5 @@
             header("Location: ../pages/analytics.php");
             exit();
         }
-    }
-
-    if (isset($_POST['search_data'])) {
-        $report_year = $_POST['year'];
-        $report_month = $_POST['month'];
-        $month_year_id = $report_month."-".$report_year;
-
-        $checkData = "SELECT * FROM m1brgy_report_info 
-                            WHERE month_year_id = '$month_year_id'";
-        $result = mysqli_query($connection, $checkData);
-
-        if (mysqli_num_rows($result) > 0) {
-            $_SESSION['month_year_id'] = $month_year_id;
-        }
-        else {
-            $errors[] = "Selected date is empty!";
-            $_SESSION['errors'] = $errors;
-        }
-        
-        header("location: ../pages/analytics.php");
     }
 ?>

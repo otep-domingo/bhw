@@ -423,13 +423,13 @@ function loadFormData(data) {
 async function saveReport() {
   const formData = collectFormData();
   const reportInfo = {
-    report_month: document.getElementById('fhsis-month').value,
-    report_year: document.getElementById('fhsis-year').value,
-    barangay_name: document.getElementById('barangay-name-field').value,
-    bhs_name: document.getElementById('bhs-name-field').value,
-    municipality: document.getElementById('municipality-field').value,
-    province: document.getElementById('province-field').value,
-    population: document.getElementById('population-field').value
+    report_month: document.getElementById('fhsis-month') ? document.getElementById('fhsis-month').value : '',
+    report_year: document.getElementById('fhsis-year') ? document.getElementById('fhsis-year').value : '',
+    barangay_name: document.getElementById('barangay-name-field') ? document.getElementById('barangay-name-field').value : '',
+    bhs_name: document.getElementById('bhs-name-field') ? document.getElementById('bhs-name-field').value : '',
+    municipality: document.getElementById('municipality-field') ? document.getElementById('municipality-field').value : '',
+    province: document.getElementById('province-field') ? document.getElementById('province-field').value : '',
+    population: document.getElementById('population-field') ? document.getElementById('population-field').value : ''
   };
   const saveData = { reportInfo, formData, savedAt: new Date().toISOString() };
   showStatus('Saving report...', 'info');
@@ -460,26 +460,17 @@ function loadSavedReport() {
     try {
       const data = JSON.parse(saved);
       if (data.reportInfo) {
-        document.getElementById('fhsis-month').value = data.reportInfo.report_month || '';
-        document.getElementById('fhsis-year').value = data.reportInfo.report_year || '';
-        document.getElementById('barangay-name-field').value = data.reportInfo.barangay_name || '';
-        document.getElementById('bhs-name-field').value = data.reportInfo.bhs_name || '';
-        document.getElementById('municipality-field').value = data.reportInfo.municipality || '';
-        document.getElementById('province-field').value = data.reportInfo.province || '';
-        document.getElementById('population-field').value = data.reportInfo.population || '';
+        if (document.getElementById('fhsis-month')) document.getElementById('fhsis-month').value = data.reportInfo.report_month || '';
+        if (document.getElementById('fhsis-year')) document.getElementById('fhsis-year').value = data.reportInfo.report_year || '';
+        if (document.getElementById('barangay-name-field')) document.getElementById('barangay-name-field').value = data.reportInfo.barangay_name || '';
+        if (document.getElementById('bhs-name-field')) document.getElementById('bhs-name-field').value = data.reportInfo.bhs_name || '';
+        if (document.getElementById('municipality-field')) document.getElementById('municipality-field').value = data.reportInfo.municipality || '';
+        if (document.getElementById('province-field')) document.getElementById('province-field').value = data.reportInfo.province || '';
+        if (document.getElementById('population-field')) document.getElementById('population-field').value = data.reportInfo.population || '';
       }
       if (data.formData) loadFormData(data.formData);
     } catch (e) { console.error('Error loading saved report:', e); }
   }
-}
-
-function exportToPDF() {
-  showStatus('Generating PDF...', 'info');
-  const element = document.getElementById('app-wrapper');
-  document.querySelectorAll('.collapsible-content')
-  .forEach(el => el.classList.add('expanded'));
-  const opt = { margin: 5, filename: `FHSIS_Report_${document.getElementById('fhsis-month').value}_${document.getElementById('fhsis-year').value}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' } };
-  html2pdf().set(opt).from(element).save().then(() => { showStatus('PDF exported successfully!', 'success'); });
 }
 
 function showStatus(message, type) {

@@ -1,0 +1,74 @@
+<style>
+    .spinner-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(255, 255, 255, 0.85);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 99999;
+        transition: opacity 0.2s ease;
+    }
+
+    .spinner-overlay.hidden {
+        display: none;
+    }
+
+    .spinner-box {
+        text-align: center;
+    }
+
+    .spinner-circle {
+        width: 60px;
+        height: 60px;
+        border: 6px solid #ddd;
+        border-top: 6px solid #3498db;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .spinner-text {
+        margin-top: 12px;
+        font-size: 14px;
+        color: #333;
+        font-family: Arial, sans-serif;
+    }
+</style>
+
+<!-- Spinner Overlay -->
+<div id="globalSpinner" class="spinner-overlay hidden">
+    <div class="spinner-box">
+        <div class="spinner-circle"></div>
+        <div class="spinner-text">Loading...</div>
+    </div>
+</div>
+
+<script>
+    function showSpinner(text = "Loading...") {
+    const spinner = document.getElementById("globalSpinner");
+    spinner.querySelector(".spinner-text").textContent = text;
+    spinner.classList.remove("hidden");
+    }
+
+    function hideSpinner() {
+        const spinner = document.getElementById("globalSpinner");
+        spinner.classList.add("hidden");
+    }
+
+    /**
+    * Redirect with spinner delay
+    */
+    async function redirectWithSpinner(url, delay = 2000, text = "Loading...") {
+        showSpinner(text);
+
+        await new Promise(resolve => setTimeout(resolve, delay));
+
+        window.location.href = url;
+    }
+</script>

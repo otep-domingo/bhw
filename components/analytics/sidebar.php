@@ -7,7 +7,7 @@
     if (isset($_SESSION['month_year_id'])) { 
         while ($row = mysqli_fetch_array($result)) {
         ?>
-        <div class="sidebar-forms">
+        <div class="sidebar-forms" id="sidebar-forms">
             <div class="report-info">
                 <div class="report-title">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
@@ -18,24 +18,24 @@
 
                 <label for="month-year">FHSIS Report for:</label>
                 <div class="month-year" id="month-year">
-                    <input type="text" name="fhsis-month" id="brgy-name" class="bgry-int" value="<?php echo $row['report_for_month']; ?>" readonly>
-                    <input type="number" name="fhsis-year" class="year-int" value="<?php echo $row['report_year']; ?>" readonly>
+                    <input type="text" name="fhsis-month" id="fhsis_month" class="bgry-int" value="<?php echo $row['report_for_month']; ?>" readonly>
+                    <input type="number" name="fhsis-year" id="fhsis_year" class="year-int" value="<?php echo $row['report_year']; ?>" readonly>
                 </div>
 
                 <label for="brgy-name">Name of Baranggay:</label>
-                <input type="text" name="barangay-name" id="brgy-name" class="bgry-int" value="<?php echo $row['brgy_name']; ?>" readonly>
+                <input type="text" name="barangay-name" id="brgy_name" class="bgry-int" value="<?php echo $row['brgy_name']; ?>" readonly>
 
                 <label for="bhs-name">Name of BHS:</label>
-                <input type="text" name="bhs-name" id="bhs-name" class="bhs-int" value="<?php echo $row['bhs_name']; ?>" readonly>
+                <input type="text" name="bhs-name" id="bhs_name" class="bhs-int" value="<?php echo $row['bhs_name']; ?>" readonly>
 
                 <label for="city-province">City and Province:</label>
                 <div class="city-province" id="city-province">
-                <input type="text" name="municipality" class="city-int" value="<?php echo $row['city_name']; ?>" readonly>
-                <input type="text" name="province" class="province-int" value="<?php echo $row['province_name']; ?>" readonly>
+                <input type="text" name="municipality" id="municipality" class="city-int" value="<?php echo $row['city_name']; ?>" readonly>
+                <input type="text" name="province" id="province" class="province-int" value="<?php echo $row['province_name']; ?>" readonly>
                 </div>
 
                 <label for="projected-population">Projected Population of the Year:</label>
-                <input type="number" name="population" id="projected-population" class="population-int" min="0" value="<?php echo $row['projected_population_year']; ?>" readonly>
+                <input type="number" name="population" id="projected_population" class="population-int" min="0" value="<?php echo $row['projected_population_year']; ?>" readonly>
             </div>
 
             <div class="acknowledgement">
@@ -48,19 +48,19 @@
                 </div>
 
                 <label for="prepared-by">Prepared by:</label>
-                <input type="text" name="prepared-by" id="prepared-by" class="prepared-int" value="<?php echo $row['prepared_by']; ?>" readonly>
+                <input type="text" name="prepared-by" id="prepared_by" class="prepared-int" value="<?php echo $row['prepared_by']; ?>" readonly>
 
                 <label for="verified-by">Verified by:</label>
-                <input type="text" name="verified-by" id="verified-by" class="verified-int" value="<?php echo $row['verified_by']; ?>" readonly>
+                <input type="text" name="verified-by" id="verified_by" class="verified-int" value="<?php echo $row['verified_by']; ?>" readonly>
             
                 <label for="position">Position:</label>
                 <input type="text" name="position" id="position" class="position-int" value="<?php echo $row['position']; ?>" readonly>
             </div>
             
-            <div class="create-new edit-button">Edit</div>
+            <!-- <div class="create-new edit-button">Edit</div> -->
         </div>
     <?php } } else { ?>
-        <div class="sidebar-forms">
+        <div class="sidebar-forms" id="sidebar-forms">
             <div class="report-info">
                 <div class="report-title">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
