@@ -225,7 +225,7 @@ function calculateTotal(table, row) {
       totalInput.value = val0 + val1 + val2;
     }
 
-    autoRefreshAnalytics();
+    //autoRefreshAnalytics();
   }, 10);
 }
 
@@ -241,7 +241,7 @@ function calculateTotal2Cols(table, row) {
       totalInput.value = valM + valF;
     }
 
-    autoRefreshAnalytics();
+    //autoRefreshAnalytics();
   }, 10);
 }
 
@@ -556,6 +556,7 @@ async function init() {
 
 init();
 
+
 function buildFPChart() {
   const totals = sumTable("fp-cueo");
   const labels = fpMethods;
@@ -784,6 +785,8 @@ function showTab(sectionId, clickedBtn) {
 
   // Activate tab button
   clickedBtn.classList.add('active-tab');
+  //alert(sectionId);
+  //load the data based on the value of the sectionId
 }
 
 window.addEventListener('DOMContentLoaded', () => {
