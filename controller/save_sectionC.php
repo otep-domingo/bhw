@@ -25,20 +25,22 @@ if (json_last_error() !== JSON_ERROR_NONE || $data === null) {
     exit;
 }
 
-$recordId  = isset($data['record_id']) ? (int) $data['record_id'] : 1; //<-- change the "1" to NULL once there is a working record_id. record_id can also be set via session
+$recordId = $data['record_id'] ?? null;
+
+if (!$recordId) {
+    http_response_code(400);
+    echo json_encode([
+        'success' => false,
+        'message' => 'record_id missing.',
+    ]);
+    exit;
+}
 $immun_a1 = $data['a1'] ?? [];
 $immun_a2  = $data['a2']  ?? [];
 $immun_a3  = $data['a3']  ?? [];
 $immun_a4  = $data['a4']  ?? [];
 $nutrition  = $data['nutrition']  ?? [];
 $sick  = $data['sick']  ?? [];
-
-// Require at least one section
-/*if (empty($mortality) && empty($natality)) {
-    http_response_code(400);
-    echo json_encode(['success' => false, 'message' => 'No data provided.']);
-    exit;
-}*/
 
 // ── 4. Connect (mysqli) ───────────────────────────────────────────────────────
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); // throw exceptions on error
@@ -78,29 +80,7 @@ function execStmt(mysqli $db, string $sql, string $types, array $params): void
 // ── 6. Save inside a transaction ──────────────────────────────────────────────
 try {
     $db->begin_transaction();
-
-    // If record_id supplied, delete existing rows first (replace strategy)
-    if ($recordId !== null) {
-        if (!empty($immun_a1)) {
-            execStmt($db, 'DELETE FROM c_a1 WHERE record_id = ?', 'i', [$recordId]);
-        }
-        if (!empty($immun_a2)) {
-            execStmt($db, 'DELETE FROM c_a2 WHERE record_id = ?', 'i', [$recordId]);
-        }
-        if (!empty($immun_a3)) {
-            execStmt($db, 'DELETE FROM c_a3 WHERE record_id = ?', 'i', [$recordId]);
-        }
-        if (!empty($immun_a4)) {
-            execStmt($db, 'DELETE FROM c_a4 WHERE record_id = ?', 'i', [$recordId]);
-        }
-        if (!empty($nutrition)) {
-            execStmt($db, 'DELETE FROM c_nutrition WHERE record_id = ?', 'i', [$recordId]);
-        }
-        if (!empty($sick)) {
-            execStmt($db, 'DELETE FROM c_sick WHERE record_id = ?', 'i', [$recordId]);
-        }
-    }
-
+    
     // ── a1 ─────────────────────────────────────────────────────────────
     if (!empty($immun_a1)) {
         $sqlM = '
@@ -121,7 +101,7 @@ try {
             $remarks = isset($row['col_4']) ? mb_substr(trim((string)$row['col_4']), 0, 1000) : null;
 
             // types: i=record_id, s=indicator, d=age_10_14, d=age_15_19, d=age_20_49, d=total, s=remarks
-            execStmt($db, $sqlM, 'isddds', [$rid, $ind, $male, $female, $total, $remarks]);
+            execStmt($db, $sqlM, 'ssddds', [$rid, $ind, $male, $female, $total, $remarks]);
         }
     }
 // ── a2 ─────────────────────────────────────────────────────────────
@@ -143,7 +123,7 @@ try {
             $total   = toFloat($row['col_3']     ?? null);
             $remarks = isset($row['col_4']) ? mb_substr(trim((string)$row['col_4']), 0, 1000) : null;
 
-            execStmt($db, $sqlM, 'isddds', [$rid, $ind, $male, $female, $total, $remarks]);
+            execStmt($db, $sqlM, 'ssddds', [$rid, $ind, $male, $female, $total, $remarks]);
         }
     }
     // ── a3 ─────────────────────────────────────────────────────────────
@@ -165,7 +145,7 @@ try {
             $total   = toFloat($row['col_3']     ?? null);
             $remarks = isset($row['col_4']) ? mb_substr(trim((string)$row['col_4']), 0, 1000) : null;
 
-            execStmt($db, $sqlM, 'isddds', [$rid, $ind, $male, $female, $total, $remarks]);
+            execStmt($db, $sqlM, 'ssddds', [$rid, $ind, $male, $female, $total, $remarks]);
         }
     }
     // ── a4 ─────────────────────────────────────────────────────────────
@@ -187,7 +167,7 @@ try {
             $total   = toFloat($row['col_3']     ?? null);
             $remarks = isset($row['col_4']) ? mb_substr(trim((string)$row['col_4']), 0, 1000) : null;
 
-            execStmt($db, $sqlM, 'isddds', [$rid, $ind, $male, $female, $total, $remarks]);
+            execStmt($db, $sqlM, 'ssddds', [$rid, $ind, $male, $female, $total, $remarks]);
         }
     }
 // ── nutritin ─────────────────────────────────────────────────────────────
@@ -209,7 +189,7 @@ try {
             $total   = toFloat($row['col_3']     ?? null);
             $remarks = isset($row['col_4']) ? mb_substr(trim((string)$row['col_4']), 0, 1000) : null;
 
-            execStmt($db, $sqlM, 'isddds', [$rid, $ind, $male, $female, $total, $remarks]);
+            execStmt($db, $sqlM, 'ssddds', [$rid, $ind, $male, $female, $total, $remarks]);
         }
     }
 // ── sick ─────────────────────────────────────────────────────────────
@@ -231,7 +211,7 @@ try {
             $total   = toFloat($row['col_3']     ?? null);
             $remarks = isset($row['col_4']) ? mb_substr(trim((string)$row['col_4']), 0, 1000) : null;
 
-            execStmt($db, $sqlM, 'isddds', [$rid, $ind, $male, $female, $total, $remarks]);
+            execStmt($db, $sqlM, 'ssddds', [$rid, $ind, $male, $female, $total, $remarks]);
         }
     }
 

@@ -25,7 +25,16 @@ if (json_last_error() !== JSON_ERROR_NONE || $data === null) {
     exit;
 }
 
-$recordId  = isset($data['record_id']) ? (int) $data['record_id'] : 1; //<-- change the "1" to NULL once there is a working record_id. record_id can also be set via session
+$recordId = $data['record_id'] ?? null;
+
+if (!$recordId) {
+    http_response_code(400);
+    echo json_encode([
+        'success' => false,
+        'message' => 'record_id missing.',
+    ]);
+    exit;
+}
 $filariasis = $data['filariasis'] ?? [];
 $rabies  = $data['rabies']  ?? [];
 $schistosomiasis  = $data['schistosomiasis']  ?? [];
@@ -79,28 +88,6 @@ function execStmt(mysqli $db, string $sql, string $types, array $params): void
 try {
     $db->begin_transaction();
 
-    // If record_id supplied, delete existing rows first (replace strategy)
-    if ($recordId !== null) {
-        if (!empty($filariasis)) {
-            execStmt($db, 'DELETE FROM g_filariasis WHERE record_id = ?', 'i', [$recordId]);
-        }
-        if (!empty($rabies)) {
-            execStmt($db, 'DELETE FROM g_rabies WHERE record_id = ?', 'i', [$recordId]);
-        }
-        if (!empty($schistosomiasis)) {
-            execStmt($db, 'DELETE FROM g_schistosomiasis WHERE record_id = ?', 'i', [$recordId]);
-        }
-        if (!empty($sth)) {
-            execStmt($db, 'DELETE FROM g_sth WHERE record_id = ?', 'i', [$recordId]);
-        }
-        if (!empty($leprosy)) {
-            execStmt($db, 'DELETE FROM g_leprosy WHERE record_id = ?', 'i', [$recordId]);
-        }
-        if (!empty($hiv)) {
-            execStmt($db, 'DELETE FROM g_hiv WHERE record_id = ?', 'i', [$recordId]);
-        }
-    }
-
     // ── Filariasis ─────────────────────────────────────────────────────────────
     if (!empty($filariasis)) {
         $sqlM = '
@@ -121,7 +108,7 @@ try {
             $remarks = isset($row['col_4']) ? mb_substr(trim((string)$row['col_4']), 0, 1000) : null;
 
             // types: i=record_id, s=indicator, d=age_10_14, d=age_15_19, d=age_20_49, d=total, s=remarks
-            execStmt($db, $sqlM, 'isddds', [$rid, $ind, $male, $female, $total, $remarks]);
+            execStmt($db, $sqlM, 'ssddds', [$rid, $ind, $male, $female, $total, $remarks]);
         }
     }
 // ── Rabies ─────────────────────────────────────────────────────────────
@@ -143,7 +130,7 @@ try {
             $total   = toFloat($row['col_3']     ?? null);
             $remarks = isset($row['col_4']) ? mb_substr(trim((string)$row['col_4']), 0, 1000) : null;
 
-            execStmt($db, $sqlM, 'isddds', [$rid, $ind, $male, $female, $total, $remarks]);
+            execStmt($db, $sqlM, 'ssddds', [$rid, $ind, $male, $female, $total, $remarks]);
         }
     }
 // ── Schistosomiasis ─────────────────────────────────────────────────────────────
@@ -165,7 +152,7 @@ try {
             $total   = toFloat($row['col_3']     ?? null);
             $remarks = isset($row['col_4']) ? mb_substr(trim((string)$row['col_4']), 0, 1000) : null;
 
-            execStmt($db, $sqlM, 'isddds', [$rid, $ind, $male, $female, $total, $remarks]);
+            execStmt($db, $sqlM, 'ssddds', [$rid, $ind, $male, $female, $total, $remarks]);
         }
     }
 // ── STH ─────────────────────────────────────────────────────────────
@@ -187,7 +174,7 @@ try {
             $total   = toFloat($row['col_3']     ?? null);
             $remarks = isset($row['col_4']) ? mb_substr(trim((string)$row['col_4']), 0, 1000) : null;
 
-            execStmt($db, $sqlM, 'isddds', [$rid, $ind, $male, $female, $total, $remarks]);
+            execStmt($db, $sqlM, 'ssddds', [$rid, $ind, $male, $female, $total, $remarks]);
         }
     }
 // ── Leprosy ─────────────────────────────────────────────────────────────
@@ -209,7 +196,7 @@ try {
             $total   = toFloat($row['col_3']     ?? null);
             $remarks = isset($row['col_4']) ? mb_substr(trim((string)$row['col_4']), 0, 1000) : null;
 
-            execStmt($db, $sqlM, 'isddds', [$rid, $ind, $male, $female, $total, $remarks]);
+            execStmt($db, $sqlM, 'ssddds', [$rid, $ind, $male, $female, $total, $remarks]);
         }
     }
 // ── HIV ─────────────────────────────────────────────────────────────
@@ -231,12 +218,9 @@ try {
             $total   = toFloat($row['col_3']     ?? null);
             $remarks = isset($row['col_4']) ? mb_substr(trim((string)$row['col_4']), 0, 1000) : null;
 
-            execStmt($db, $sqlM, 'isddds', [$rid, $ind, $male, $female, $total, $remarks]);
+            execStmt($db, $sqlM, 'ssddds', [$rid, $ind, $male, $female, $total, $remarks]);
         }
     }
-    
-    
-
 
     $db->commit();
     echo json_encode(['success' => true, 'message' => 'Records saved successfully.']);

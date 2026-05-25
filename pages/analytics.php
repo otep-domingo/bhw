@@ -36,7 +36,7 @@
 <body class="h-full">
   <div id="app-wrapper" class="h-full w-full overflow-auto">
     <div class="max-w-full mx-auto">
-      <?php include('../components/nav.html'); ?>
+      <?php include(__DIR__ . "/../components/nav.html"); ?>
       <?php
         if (isset($_SESSION['errors'])) {
             echo "<div class='toast-container error-container'>";
@@ -60,9 +60,9 @@
       <!-- <form action="../controller/analytics.php" method="POST" id="report-form"> -->
       <div class="main-body">
         <!-- SIDEBAR FORMS -->
-        <?php include "../components/analytics/sidebar.php"; ?>
-        <?php include "../components/analytics/confirmModal.php"; ?>
-        <?php include "../components/analytics/warningModal.php"; ?>
+        <?php include(__DIR__ . "/../components/analytics/sidebar.php"); ?>
+        <?php include(__DIR__ . "/../components/analytics/confirmModal.php"); ?>
+        <?php include(__DIR__ . "/../components/analytics/warningModal.php"); ?>
         <!-- </form> -->
 
         <!-- BODY FORMS -->
@@ -91,14 +91,13 @@
                 </svg>
                 Export PDF
               </button>
-              <button class="btn-export generate-analytics" onclick="toggleAnalytics()">
+              <button class="btn-export generate-analytics" onclick="generateAnalytics()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16">
                   <path d="M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/>
                 </svg>
                 Generate Analytics
               </button>
-              <button class="create-new" type="submit"
-                data-bs-toggle="modal"
+              <button class="create-new" data-bs-toggle="modal"
                 data-bs-target="#warningModal">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
                   <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
@@ -154,6 +153,7 @@
               <h2 class="text-lg md:text-xl font-bold">
                 Family Planning Services For Women Of Reproductive Age
               </h2>
+              <input type="hidden" id="monthYearId" value="<?= $_SESSION['month_year_id'] ?? '' ?>">
               <div class="flex items-right button-sections">
                 <button id="btn-save-sectionA" onclick="saveSectionA()"
                   class="flex items-center gap-2 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold px-6 py-2.5 rounded-lg shadow transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-green-400">
@@ -163,7 +163,7 @@
                       d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h8l4 4v12a2 2 0 01-2 2z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 21V13h6v8M9 3h6v4H9V3z" />
                   </svg>
-                  Save Family Planning
+                  Save Section
                 </button>
 
                 <!-- Spinner shown while saving -->
@@ -196,11 +196,11 @@
                     <tbody id="demand-body">
                       <tr class="hover:bg-gray-50">
                         <td class="border border-gray-300 p-2 text-sm">No of women of reproductive age(WRA) 15-49 years old who have demand for Family Planning(FP) and currently using, or whose partner is currently using, any modern FP Methods.</td>
-                        <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="demand" data-row="0" data-col="0" min="0" onchange="calculateTotal('demand', 0)" name="demand[0][0]"></td>
-                        <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="demand" data-row="0" data-col="1" min="0" onchange="calculateTotal('demand', 0)" name="demand[0][1]"></td>
-                        <td class="border border-gray-300 p-1"><input type="number" class="cell-input" data-table="demand" data-row="0" data-col="2" min="0" onchange="calculateTotal('demand', 0)" name="demand[0][2]"></td>
-                        <td class="border border-gray-300 p-1"><input type="number" class="cell-input total-cell" data-table="demand" data-row="0" data-col="t" readonly name="demand[0][3]"></td>
-                        <td class="border border-gray-300 p-1"><input type="text" class="cell-input" data-table="demand" data-row="0" data-col="remarks" name="demand[0][4]"></td>
+                        <td class="border border-gray-300 p-1"><input id="demand-0-0" type="number" class="cell-input" data-table="demand" data-row="0" data-col="0" min="0" onchange="calculateTotal('demand', 0)" name="demand[0][0]"></td>
+                        <td class="border border-gray-300 p-1"><input id="demand-0-1" type="number" class="cell-input" data-table="demand" data-row="0" data-col="1" min="0" onchange="calculateTotal('demand', 0)" name="demand[0][1]"></td>
+                        <td class="border border-gray-300 p-1"><input id="demand-0-2" type="number" class="cell-input" data-table="demand" data-row="0" data-col="2" min="0" onchange="calculateTotal('demand', 0)" name="demand[0][2]"></td>
+                        <td class="border border-gray-300 p-1"><input id="demand-0-3" type="number" class="cell-input total-cell" data-table="demand" data-row="0" data-col="t" readonly name="demand[0][3]"></td>
+                        <td class="border border-gray-300 p-1"><input id="demand-0-4" type="text" class="cell-input" data-table="demand" data-row="0" data-col="4" name="demand[0][4]"></td>
                       </tr>
                     </tbody>
                   </table>
@@ -260,6 +260,7 @@
               <h2 class="text-lg md:text-xl font-bold">
                 Maternal Care and Services
               </h2>
+              <input type="hidden" id="monthYearId" value="<?= $_SESSION['month_year_id'] ?? '' ?>">
               <div class="flex items-right button-sections">
                 <button id="btn-save-sectionB" onclick="saveSectionB()"
                   class="flex items-center gap-2 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold px-6 py-2.5 rounded-lg shadow transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-green-400">
@@ -269,7 +270,7 @@
                       d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h8l4 4v12a2 2 0 01-2 2z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 21V13h6v8M9 3h6v4H9V3z" />
                   </svg>
-                  Save Maternal Care and Services
+                  Save Section
                 </button>
 
                 <!-- Spinner shown while saving -->
@@ -310,7 +311,7 @@
               <h2 class="text-lg md:text-xl font-bold">
                 Child Health Care Services
               </h2>
-              
+              <input type="hidden" id="monthYearId" value="<?= $_SESSION['month_year_id'] ?? '' ?>">
               <div class="flex items-right button-sections">
                 <button id="btn-save-sectionC" onclick="saveSectionC()"
                   class="flex items-center gap-2 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold px-6 py-2.5 rounded-lg shadow transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-green-400">
@@ -320,7 +321,7 @@
                       d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h8l4 4v12a2 2 0 01-2 2z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 21V13h6v8M9 3h6v4H9V3z" />
                   </svg>
-                  Save Oral Health Care Services
+                  Save Section
                 </button>
 
                 <!-- Spinner shown while saving -->
@@ -450,7 +451,7 @@
               <h2 class="text-lg md:text-xl font-bold">
                 Oral Health Care Services
               </h2>
-              
+              <input type="hidden" id="monthYearId" value="<?= $_SESSION['month_year_id'] ?? '' ?>">
               <div class="flex items-right button-sections">
                 <button id="btn-save-sectionD" onclick="saveSectionD()"
                   class="flex items-center gap-2 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold px-6 py-2.5 rounded-lg shadow transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-green-400">
@@ -460,7 +461,7 @@
                       d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h8l4 4v12a2 2 0 01-2 2z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 21V13h6v8M9 3h6v4H9V3z" />
                   </svg>
-                  Save Oral Health Care Services
+                  Save Section
                 </button>
 
                 <!-- Spinner shown while saving -->
@@ -500,7 +501,7 @@
               <h2 class="text-lg md:text-xl font-bold">
                 Non-communicable Diseases (NCDs)
               </h2>
-              
+              <input type="hidden" id="monthYearId" value="<?= $_SESSION['month_year_id'] ?? '' ?>">
               <div class="flex items-right button-sections">
                 <button id="btn-save-sectionE" onclick="saveSectionE()"
                   class="flex items-center gap-2 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold px-6 py-2.5 rounded-lg shadow transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-green-400">
@@ -510,7 +511,7 @@
                       d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h8l4 4v12a2 2 0 01-2 2z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 21V13h6v8M9 3h6v4H9V3z" />
                   </svg>
-                  Save Infectious Disease Prevention and Control Services
+                  Save Section
                 </button>
 
                 <!-- Spinner shown while saving -->
@@ -669,7 +670,7 @@
               <h2 class="text-lg md:text-xl font-bold">
                 Environmental Health and Sanitation
               </h2>
-              
+              <input type="hidden" id="monthYearId" value="<?= $_SESSION['month_year_id'] ?? '' ?>">
               <div class="flex items-right button-sections">
                 <button id="btn-save-sectionF" onclick="saveSectionF()"
                   class="flex items-center gap-2 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold px-6 py-2.5 rounded-lg shadow transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-green-400">
@@ -679,7 +680,7 @@
                       d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h8l4 4v12a2 2 0 01-2 2z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 21V13h6v8M9 3h6v4H9V3z" />
                   </svg>
-                  Save Environmental Health and Sanitation
+                  Save Section
                 </button>
 
                 <!-- Spinner shown while saving -->
@@ -734,7 +735,7 @@
               <h2 class="text-lg md:text-xl font-bold">
                 Infectious Disease Prevention and Control Services
               </h2>
-              
+              <input type="hidden" id="monthYearId" value="<?= $_SESSION['month_year_id'] ?? '' ?>">
               <div class="flex items-right button-sections">
                 <button id="btn-save-infectious" onclick="saveSectionG()"
                   class="flex items-center gap-2 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold px-6 py-2.5 rounded-lg shadow transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-green-400">
@@ -744,7 +745,7 @@
                       d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h8l4 4v12a2 2 0 01-2 2z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 21V13h6v8M9 3h6v4H9V3z" />
                   </svg>
-                  Save Infectious Disease Prevention and Control Services
+                  Save Section
                 </button>
 
                 <!-- Spinner shown while saving -->
@@ -871,7 +872,7 @@
               <h2 class="text-lg md:text-xl font-bold">
                 Vital Statistics
               </h2>
-              
+              <input type="hidden" id="monthYearId" value="<?= $_SESSION['month_year_id'] ?? '' ?>">
               <div class="flex items-right button-sections">
                 <button id="btn-save-vital" onclick="saveSectionH()"
                   class="flex items-center gap-2 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold px-6 py-2.5 rounded-lg shadow transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-green-400">
@@ -881,7 +882,7 @@
                       d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h8l4 4v12a2 2 0 01-2 2z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 21V13h6v8M9 3h6v4H9V3z" />
                   </svg>
-                  Save Vital Statistics
+                  Save Section
                 </button>
 
                 <!-- Spinner shown while saving -->
@@ -990,12 +991,15 @@
 
         </div>
         <?php } else { 
-          include "../components/spinner.html";
-          include "../components/analytics/search.php"; 
+          include(__DIR__ . "/../components/analytics/search.php"); 
           } ?>
       </div>
     </div>
+    
+    <?php include(__DIR__ . "/../components/analytics/analyticsModal.php"); ?>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/generateAnalytics.js"></script>
     <script src="../js/analytics.js"></script>
     <script src="../js/generatePDF.js"></script>
     <script src="../js/createNew.js"></script>
