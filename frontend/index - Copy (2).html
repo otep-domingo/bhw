@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BHW Monthly Accomplishment Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green-900:#14532d;--green-800:#166534;--green-700:#15803d;
+  --green-600:#16a34a;--green-500:#22c55e;--green-200:#bbf7d0;
+  --green-100:#dcfce7;--green-50:#f0fdf4;
+  --blue-700:#1d4ed8;--blue-600:#2563eb;--blue-100:#dbeafe;--blue-50:#eff6ff;
+  --amber-700:#b45309;--amber-100:#fef3c7;--amber-50:#fffbeb;
+  --rose-600:#e11d48;--rose-100:#ffe4e6;
+  --cyan-600:#0891b2;--cyan-100:#cffafe;
+  --orange-100:#fed7aa;--orange-600:#ea580c;
+  --gray-900:#111827;--gray-800:#1f2937;--gray-700:#374151;
+  --gray-600:#4b5563;--gray-500:#6b7280;--gray-400:#9ca3af;
+  --gray-300:#d1d5db;--gray-200:#e5e7eb;--gray-100:#f3f4f6;
+  --gray-50:#f9fafb;--white:#ffffff;
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);
+  --font:'Plus Jakarta Sans',sans-serif;--mono:'DM Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--gray-50);color:var(--gray-800);min-height:100vh;font-size:14px;line-height:1.5}
+input,select,button{font-family:inherit}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+input[type="number"]{-moz-appearance:textfield}
+button{cursor:pointer}
+
+/* HEADER */
+.header{
+  background:linear-gradient(135deg,var(--green-900),var(--green-700) 60%,var(--green-600));
+  color:#fff;padding:0 20px;
+  box-shadow:0 4px 20px rgba(21,128,61,.35);
+  position:sticky;top:0;z-index:100;
+}
+.header-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-icon{width:42px;height:42px;background:rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.3)}
+.brand-icon svg{width:22px;height:22px;fill:#fff}
+.brand-title{font-size:16px;font-weight:800;letter-spacing:-.02em}
+.brand-sub{font-size:11px;opacity:.7;letter-spacing:.04em;text-transform:uppercase}
+.header-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:7px;font-size:12.5px;font-weight:600;border:none;transition:all .15s;cursor:pointer}
+.btn svg{width:14px;height:14px;flex-shrink:0}
+.btn-white{background:#fff;color:var(--green-800)}.btn-white:hover{background:var(--green-100)}
+.btn-dark{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2)}.btn-dark:hover{background:rgba(255,255,255,.22)}
+.btn-blue{background:var(--blue-600);color:#fff}.btn-blue:hover{background:#1d4ed8}
+.btn-red{background:var(--rose-600);color:#fff}.btn-red:hover{background:#be123c}
+
+/* MAIN */
+.main-content{max-width:1400px;margin:0 auto;padding:20px 16px 40px}
+
+/* CARDS */
+.card{background:var(--white);border-radius:12px;box-shadow:var(--shadow-md);margin-bottom:20px;overflow:hidden}
+.card-header{padding:14px 20px;display:flex;align-items:center;gap:10px;color:#fff}
+.card-header svg{width:17px;height:17px;fill:currentColor;flex-shrink:0}
+.card-title{font-size:14px;font-weight:700}
+.card-body{padding:20px}
+.card-header-green{background:linear-gradient(90deg,var(--green-800),var(--green-600))}
+.card-border-l-green{border-left:4px solid var(--green-600)}
+.card-border-l-blue{border-left:4px solid var(--blue-600)}
+.card-border-l-amber{border-left:4px solid var(--amber-700)}
+
+/* REPORT BAR */
+.report-bar{background:var(--white);border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08);padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border:1px solid var(--gray-200)}
+.report-bar label{font-size:13px;font-weight:600;color:var(--gray-700)}
+.report-bar select{border:1.5px solid var(--gray-300);border-radius:8px;padding:7px 12px;font-size:13px;color:var(--gray-800);outline:none;min-width:240px;cursor:pointer}
+.report-bar select:focus{border-color:var(--green-600)}
+
+/* FORM */
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.fg label{display:block;font-size:11.5px;font-weight:700;color:var(--gray-600);margin-bottom:5px;letter-spacing:.04em;text-transform:uppercase}
+.fc{width:100%;border:1.5px solid var(--gray-300);border-radius:8px;padding:9px 12px;font-size:13.5px;color:var(--gray-900);outline:none;transition:border .15s,box-shadow .15s}
+.fc:focus{border-color:var(--green-600);box-shadow:0 0 0 3px rgba(22,163,74,.12)}
+.fc::placeholder{color:var(--gray-400)}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;min-width:900px}
+thead th{padding:10px 6px;font-size:11px;font-weight:700;color:var(--green-800);background:var(--green-50);border-bottom:2px solid var(--green-200);text-align:center;letter-spacing:.03em;white-space:nowrap}
+thead th.col-label{text-align:left;padding-left:12px;min-width:290px;position:sticky;left:0;z-index:5;background:var(--green-50)}
+thead th.col-total{background:var(--green-100)}
+tbody tr.row-header{background:var(--green-100)}
+tbody tr.row-header td{padding:9px 12px;font-weight:700;color:var(--green-900);font-size:12px;letter-spacing:.02em;position:sticky;left:0}
+tbody tr.row-data{border-bottom:1px solid var(--gray-100)}
+tbody tr.row-data:hover{background:var(--gray-50)}
+tbody tr.row-data td.col-label{position:sticky;left:0;background:var(--white);z-index:3;padding:6px 12px;font-size:12px;color:var(--gray-700);border-right:1px solid var(--gray-200)}
+tbody tr.row-data:hover td.col-label{background:var(--gray-50)}
+tbody tr.row-data td.indent{padding-left:24px}
+tbody tr.row-data td.col-num{padding:3px 2px;text-align:center}
+.num-input{width:100%;text-align:center;border:1.5px solid var(--gray-200);border-radius:5px;padding:5px 2px;font-size:12px;color:var(--gray-900);outline:none;min-width:40px;background:var(--white);transition:border .12s,box-shadow .12s;font-family:var(--mono)}
+.num-input:focus{border-color:var(--green-500);box-shadow:0 0 0 2px rgba(34,197,94,.18)}
+.num-input.has-value{background:var(--green-50);border-color:var(--green-300);font-weight:700;color:var(--green-800)}
+td.col-total-cell{padding:6px 8px;text-align:center;font-weight:700;font-family:var(--mono);color:var(--green-800);background:var(--green-50);min-width:52px;font-size:13px}
+
+/* FP CHECKBOXES */
+.fp-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.fp-section-title{font-size:11.5px;font-weight:700;color:var(--gray-600);margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid var(--gray-200);letter-spacing:.04em;text-transform:uppercase}
+.fp-list{display:flex;flex-direction:column;gap:3px}
+.fp-item{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:7px;cursor:pointer;transition:background .12s}
+.fp-item:hover{background:var(--gray-100)}
+.fp-item input[type="checkbox"]{width:15px;height:15px;accent-color:var(--green-600);cursor:pointer;flex-shrink:0}
+.fp-item span{font-size:13px;color:var(--gray-700)}
+.fp-badge{display:inline-flex;padding:2px 8px;border-radius:12px;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.fp-badge-modern{background:var(--green-100);color:var(--green-800)}
+.fp-badge-natural{background:var(--blue-100);color:var(--blue-700)}
+
+/* SUMMARY */
+.category-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;margin-bottom:24px}
+.cat-card{border-radius:10px;padding:14px;text-align:center;transition:transform .15s}
+.cat-card:hover{transform:translateY(-2px)}
+.cat-card .cat-val{font-size:28px;font-weight:800;font-family:var(--mono);line-height:1}
+.cat-card .cat-label{font-size:11px;font-weight:600;margin-top:4px;opacity:.8}
+.chart-container{background:var(--gray-50);border-radius:10px;padding:20px;border:1px solid var(--gray-200)}
+.chart-bars{display:flex;align-items:flex-end;gap:4px;height:150px;padding-bottom:4px}
+.chart-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;height:100%}
+.chart-bar-col{width:100%;flex:1;display:flex;align-items:flex-end;position:relative}
+.chart-bar{width:100%;border-radius:5px 5px 0 0;background:linear-gradient(180deg,var(--green-500),var(--green-700));transition:height .4s cubic-bezier(.4,0,.2,1);position:relative;min-height:3px;cursor:pointer}
+.chart-bar:hover{background:linear-gradient(180deg,var(--green-400),var(--green-600))}
+.chart-bar .bar-tip{position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);background:var(--gray-900);color:#fff;font-size:10px;font-weight:700;padding:3px 6px;border-radius:4px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;font-family:var(--mono)}
+.chart-bar:hover .bar-tip{opacity:1}
+.chart-labels{display:flex;gap:4px;margin-top:6px}
+.chart-labels span{flex:1;text-align:center;font-size:10px;color:var(--gray-500);font-weight:600}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+.stat-box{border-radius:10px;padding:16px;text-align:center}
+.stat-box .stat-val{font-size:30px;font-weight:800;font-family:var(--mono);line-height:1.1}
+.stat-box .stat-lbl{font-size:11px;font-weight:600;margin-top:4px;opacity:.75;letter-spacing:.03em;text-transform:uppercase}
+.stat-green{background:var(--green-50);border:1.5px solid var(--green-200)}.stat-green .stat-val{color:var(--green-700)}
+.stat-blue{background:var(--blue-50);border:1.5px solid var(--blue-100)}.stat-blue .stat-val{color:var(--blue-600)}
+.stat-amber{background:var(--amber-50);border:1.5px solid var(--amber-100)}.stat-amber .stat-val{color:var(--amber-700)}
+.summary-text-box{background:var(--gray-50);border-radius:8px;padding:16px;font-size:13px;color:var(--gray-700);line-height:1.65;border:1px solid var(--gray-200)}
+
+/* SIGNATURE */
+.sig-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.sig-block{text-align:center}
+.sig-line{border-top:2px solid var(--gray-400);margin:0 30px 8px;padding-top:8px}
+.sig-label{font-weight:600;font-size:13px;color:var(--gray-700)}
+.sig-date{font-size:12px;color:var(--gray-500);margin-top:4px}
+
+/* SECTION LABEL */
+.section-label{font-size:12px;font-weight:700;color:var(--gray-600);margin-bottom:12px;letter-spacing:.04em;text-transform:uppercase}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--green-700);color:#fff;padding:12px 18px;border-radius:10px;box-shadow:var(--shadow-lg);font-size:13px;font-weight:600;transform:translateY(80px);opacity:0;transition:all .3s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:9999;display:flex;align-items:center;gap:8px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.error{background:var(--rose-600)}
+
+/* PRINT */
+@media print{
+  .no-print{display:none!important}
+  .header{position:static}
+  .card{box-shadow:none;border:1px solid #ccc}
+  .num-input{border:none!important;background:transparent!important;font-weight:600}
+  body{font-size:10px}table{font-size:9px}
+  .print-break{page-break-before:always}
+}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+  .fp-grid,.stats-grid,.sig-grid{grid-template-columns:1fr}
+  .category-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header no-print">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+      </div>
+      <div>
+        <div class="brand-title">Barangay Health Workers</div>
+        <div class="brand-sub">Monthly Accomplishment Report</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-white" onclick="saveReport()">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+        Save
+      </button>
+      <button class="btn btn-dark" onclick="window.print()">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+        Print
+      </button>
+      <button class="btn btn-blue" onclick="exportCSV()">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        Export CSV
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="main-content">
+
+  <!-- REPORT SELECTOR -->
+  <div class="report-bar no-print">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <label>Saved Reports:</label>
+      <select id="reportSelector" onchange="loadSelectedReport()">
+        <option value="new">+ New Report</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-red" id="deleteBtn" style="display:none" onclick="deleteCurrentReport()">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+        Delete
+      </button>
+    </div>
+  </div>
+
+  <!-- REPORT INFORMATION -->
+  <div class="card card-border-l-green">
+    <div class="card-body">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+        <svg style="width:18px;height:18px;fill:var(--green-700)" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        <span style="font-size:14.5px;font-weight:700;color:var(--green-800)">Report Information</span>
+      </div>
+      <div class="form-grid">
+        <div class="fg"><label>Year</label><input type="number" id="inputYear" class="fc" placeholder="2025" min="2000" max="2099" oninput="updateSummary()"></div>
+        <div class="fg"><label>Name of BHW</label><input type="text" id="inputBHW" class="fc" placeholder="Enter BHW name"></div>
+        <div class="fg"><label>Barangay</label><input type="text" id="inputBarangay" class="fc" placeholder="Enter barangay"></div>
+        <div class="fg"><label>Area</label><input type="text" id="inputArea" class="fc" placeholder="Enter area"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MONTHLY ACCOMPLISHMENT DATA -->
+  <div class="card">
+    <div class="card-header card-header-green">
+      <svg viewBox="0 0 24 24"><path d="M3 3v18h18V3H3zm16 16H5V5h14v14zM7 7h2v2H7V7zm0 4h2v2H7v-2zm0 4h2v2H7v-2zm4-8h6v2h-6V7zm0 4h6v2h-6v-2zm0 4h6v2h-6v-2z"/></svg>
+      <span class="card-title">Monthly Accomplishment Data</span>
+    </div>
+    <div class="table-wrap">
+      <table id="mainTable">
+        <thead>
+          <tr>
+            <th class="col-label">Program / Activity</th>
+            <th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th>
+            <th>May</th><th>Jun</th><th>Jul</th><th>Aug</th>
+            <th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th>
+            <th class="col-total" style="background:var(--green-100);color:var(--green-900)">Total</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FAMILY PLANNING METHODS -->
+  <div class="card card-border-l-blue">
+    <div class="card-body">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+        <svg style="width:18px;height:18px;fill:var(--blue-600)" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        <span style="font-size:14.5px;font-weight:700;color:var(--blue-700)">Family Planning Methods Used</span>
+      </div>
+      <div class="fp-grid">
+        <div>
+          <div class="fp-section-title"><span class="fp-badge fp-badge-modern">Modern Methods</span></div>
+          <div class="fp-list">
+            <label class="fp-item"><input type="checkbox" id="fp_pills" onchange="updateSummary()"><span>Pills (breastfeeding)</span></label>
+            <label class="fp-item"><input type="checkbox" id="fp_injectables" onchange="updateSummary()"><span>Injectables</span></label>
+            <label class="fp-item"><input type="checkbox" id="fp_btl" onchange="updateSummary()"><span>BTL (Bilateral Tubal Ligation)</span></label>
+            <label class="fp-item"><input type="checkbox" id="fp_vasectomy" onchange="updateSummary()"><span>Vasectomy</span></label>
+            <label class="fp-item"><input type="checkbox" id="fp_implant" onchange="updateSummary()"><span>Implant</span></label>
+            <label class="fp-item"><input type="checkbox" id="fp_condom" onchange="updateSummary()"><span>Condom</span></label>
+          </div>
+        </div>
+        <div>
+          <div class="fp-section-title"><span class="fp-badge fp-badge-natural">Natural Methods</span></div>
+          <div class="fp-list">
+            <label class="fp-item"><input type="checkbox" id="fp_cm" onchange="updateSummary()"><span>Cervical Mucus (CM)</span></label>
+            <label class="fp-item"><input type="checkbox" id="fp_bbt" onchange="updateSummary()"><span>Basal Body Temperature (BBT)</span></label>
+            <label class="fp-item"><input type="checkbox" id="fp_stm" onchange="updateSummary()"><span>Symptothermal Method (STM)</span></label>
+            <label class="fp-item"><input type="checkbox" id="fp_sdm" onchange="updateSummary()"><span>Standard Days Method (SDM)</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY REPORT -->
+  <div class="card card-border-l-amber print-break">
+    <div class="card-body">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px">
+        <svg style="width:18px;height:18px;fill:var(--amber-700)" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+        <span style="font-size:14.5px;font-weight:700;color:var(--amber-700)">Summary Report</span>
+      </div>
+      <div class="section-label">Total Accomplishments per Category</div>
+      <div class="category-grid" id="categoryTotals"></div>
+      <div class="section-label">Monthly Performance</div>
+      <div class="chart-container">
+        <div class="chart-bars" id="monthlyChart"></div>
+        <div class="chart-labels"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span></div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-box stat-green"><div class="stat-val" id="totalYear">0</div><div class="stat-lbl">Yearly Total</div></div>
+        <div class="stat-box stat-blue"><div class="stat-val" id="highestMonth" style="font-size:17px">—</div><div class="stat-lbl">Highest Month</div></div>
+        <div class="stat-box stat-amber"><div class="stat-val" id="lowestMonth" style="font-size:17px">—</div><div class="stat-lbl">Lowest Month</div></div>
+      </div>
+      <div class="section-label">Performance Summary</div>
+      <div class="summary-text-box" id="summaryText">Enter data above to generate an automatic performance summary.</div>
+    </div>
+  </div>
+
+  <!-- SIGNATURE -->
+  <div class="card">
+    <div class="card-body">
+      <div class="sig-grid">
+        <div class="sig-block"><div class="sig-line"></div><div class="sig-label">Prepared by: BHW</div><div class="sig-date">Date: _______________</div></div>
+        <div class="sig-block"><div class="sig-line"></div><div class="sig-label">Noted by: Midwife / PHN</div><div class="sig-date">Date: _______________</div></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="no-print" style="background:var(--green-900);color:#fff;padding:14px;text-align:center;font-size:12px">
+  <p>Barangay Health Workers Monthly Accomplishment Report System</p>
+  <p style="opacity:.6;margin-top:2px">Department of Health • Republic of the Philippines</p>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <svg style="width:15px;height:15px;flex-shrink:0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+  <span id="toastMsg"></span>
+</div>
+
+<script>
+const API_BASE = 'http://localhost:3000/api';
+
+const TABLE_ROWS = [
+  { category:'1. MATERNAL CARE', isHeader:true },
+  { id:'maternal_1_1', label:'1.1 Bilang ng Bagong Buntis na Nanay ngayong Buwan sa Komunidad' },
+  { id:'maternal_1_2', label:'1.2 Bilang ng Nanay na Buntis na nabigyan ng kaalaman ng Danger Sign' },
+  { id:'maternal_1_3', label:'1.3 Bilang ng Nanay na Buntis na nakipag-ugnayan sa Health Center' },
+  { id:'maternal_1_4', label:'1.4 Bilang ng Nanay na may Birth Plan' },
+  { category:'2. DELIVERY', isHeader:true },
+  { id:'delivery_2_1', label:'2.1 Mga Nanay na buntis na nagsilang sa:', computed:['delivery_2_1a','delivery_2_1b'] },
+  { id:'delivery_2_1a', label:'a. Bahay', indent:true },
+  { id:'delivery_2_1b', label:'b. Pasilidad', indent:true },
+  { category:'3. POST-PARTUM', isHeader:true },
+  { id:'postpartum_3_1', label:'3.1 Bilang ng nanganak na Nanay na sinubaybayan para bumalik sa Health Center' },
+  { category:'4. CHILDCARE', isHeader:true },
+  { id:'childcare_4_1', label:'4.1 Bilang ng mga bagong silang na sanggol na may Newborn Screening' },
+  { category:'5. NATIONAL IMMUNIZATION PROGRAM', isHeader:true },
+  { id:'nip_5_1', label:'5.1 Bilang ng Bagong Panganak na Sanggol (1–28 days of life)' },
+  { id:'nip_5_2', label:'5.2 Fully Immunized Child (0–11 months)' },
+  { id:'nip_5_3', label:'5.3 Missed Child' },
+  { id:'nip_5_4', label:'5.4 Completely Immunized Child (12 months above)' },
+  { category:'6. NUTRITION', isHeader:true },
+  { id:'nutrition_6_1', label:'6.1 Napurga + Micronutrient Supplementation' },
+  { id:'nutrition_6_2', label:'6.2 Buntis na nabigyan ng:', computed:['nutrition_6_2a','nutrition_6_2b'] },
+  { id:'nutrition_6_2a', label:'a. Calcium Carbonate', indent:true },
+  { id:'nutrition_6_2b', label:'b. Iron with Folic Acid', indent:true },
+  { id:'nutrition_6_3', label:'6.3 Nagpapasusong ina na nabigyan ng:', computed:['nutrition_6_3a','nutrition_6_3b'] },
+  { id:'nutrition_6_3a', label:'a. Vitamin A', indent:true },
+  { id:'nutrition_6_3b', label:'b. Iron with Folic Acid', indent:true },
+  { id:'nutrition_6_4', label:'6.4 Napayuhan sa wastong pagpapasuso' },
+  { category:'7. FAMILY PLANNING', isHeader:true },
+  { id:'fp_7_1', label:'7.1 Operated women (BTL / hysterectomy)' },
+  { id:'fp_7_2', label:'7.2 Not using modern planning methods' },
+  { id:'fp_7_3', label:'7.3 Using modern planning methods' }
+];
+
+const CATEGORIES = {
+  'Maternal Care':   ['maternal_1_1','maternal_1_2','maternal_1_3','maternal_1_4'],
+  'Delivery':        ['delivery_2_1a','delivery_2_1b'],
+  'Post-Partum':     ['postpartum_3_1'],
+  'Childcare':       ['childcare_4_1'],
+  'Immunization':    ['nip_5_1','nip_5_2','nip_5_3','nip_5_4'],
+  'Nutrition':       ['nutrition_6_1','nutrition_6_2a','nutrition_6_2b','nutrition_6_3a','nutrition_6_3b','nutrition_6_4'],
+  'Family Planning': ['fp_7_1','fp_7_2','fp_7_3']
+};
+
+const CAT_COLORS = [
+  {bg:'#dcfce7',border:'#16a34a',txt:'#14532d'},
+  {bg:'#dbeafe',border:'#2563eb',txt:'#1e3a8a'},
+  {bg:'#ede9fe',border:'#7c3aed',txt:'#4c1d95'},
+  {bg:'#fef3c7',border:'#b45309',txt:'#78350f'},
+  {bg:'#ffe4e6',border:'#e11d48',txt:'#881337'},
+  {bg:'#cffafe',border:'#0891b2',txt:'#164e63'},
+  {bg:'#fed7aa',border:'#ea580c',txt:'#7c2d12'}
+];
+
+const MONTHS      = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const FP_KEYS     = ['fp_pills','fp_injectables','fp_btl','fp_vasectomy','fp_implant','fp_condom','fp_cm','fp_bbt','fp_stm','fp_sdm'];
+const FP_LABELS   = {fp_pills:'Pills',fp_injectables:'Injectables',fp_btl:'BTL',fp_vasectomy:'Vasectomy',fp_implant:'Implant',fp_condom:'Condom',fp_cm:'CM',fp_bbt:'BBT',fp_stm:'STM',fp_sdm:'SDM'};
+
+let currentReportId = null;
+let allReports      = [];
+
+/* ---- API helper ---- */
+async function api(method, path, body = null) {
+  const opts = { method, headers: { 'Content-Type': 'application/json' } };
+  if (body) opts.body = JSON.stringify(body);
+  const res  = await fetch(`${API_BASE}${path}`, opts);
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'Request failed.');
+  return data;
+}
+
+/* ---- Build table ---- */
+function initializeTable() {
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = '';
+  TABLE_ROWS.forEach(row => {
+    const tr = document.createElement('tr');
+    if (row.isHeader) {
+      tr.className = 'row-header';
+      tr.innerHTML = `<td colspan="14" class="col-label">${row.category}</td>`;
+    } else if (row.computed) {
+      // Parent row: no inputs — each month cell shows sum of sub-rows
+      tr.className = 'row-data';
+      let cells = `<td class="col-label${row.indent?' indent':''}" style="font-style:italic;color:var(--gray-600)">${row.label}</td>`;
+      MONTHS.forEach(m => {
+        cells += `<td class="col-total-cell" id="${row.id}_${m}_computed" style="color:var(--gray-500);font-size:11px">0</td>`;
+      });
+      cells += `<td class="col-total-cell" id="${row.id}_total" style="background:var(--green-100)">0</td>`;
+      tr.innerHTML = cells;
+    } else {
+      tr.className = 'row-data';
+      let cells = `<td class="col-label${row.indent?' indent':''}">${row.label}</td>`;
+      MONTHS.forEach(m => {
+        cells += `<td class="col-num"><input type="number" min="0" id="${row.id}_${m}" class="num-input" value="0" oninput="onCellInput('${row.id}','${m}',this)"></td>`;
+      });
+      cells += `<td class="col-total-cell" id="${row.id}_total">0</td>`;
+      tr.innerHTML = cells;
+    }
+    tbody.appendChild(tr);
+  });
+}
+
+function onCellInput(rowId, month, input) {
+  if (parseInt(input.value) < 0) input.value = 0;
+  input.classList.toggle('has-value', (parseInt(input.value)||0) > 0);
+  updateRowTotal(rowId);
+  // Refresh any computed parent that lists this rowId as a child
+  TABLE_ROWS.forEach(r => {
+    if (r.computed && r.computed.includes(rowId)) updateComputedRow(r);
+  });
+  updateSummary();
+}
+
+// For normal input rows: sum the 12 month inputs
+function updateRowTotal(rowId) {
+  let total = 0;
+  MONTHS.forEach(m => { const el=document.getElementById(`${rowId}_${m}`); if(el) total+=parseInt(el.value)||0; });
+  const cell = document.getElementById(`${rowId}_total`);
+  if (cell) cell.textContent = total;
+  return total;
+}
+
+// For computed parent rows: sum sub-row values per month, update month cells + row total
+function updateComputedRow(row) {
+  let rowTotal = 0;
+  MONTHS.forEach(m => {
+    let monthSum = 0;
+    row.computed.forEach(childId => {
+      const el = document.getElementById(`${childId}_${m}`);
+      if (el) monthSum += parseInt(el.value) || 0;
+    });
+    const cell = document.getElementById(`${row.id}_${m}_computed`);
+    if (cell) cell.textContent = monthSum;
+    rowTotal += monthSum;
+  });
+  const totalCell = document.getElementById(`${row.id}_total`);
+  if (totalCell) totalCell.textContent = rowTotal;
+}
+
+function updateSummary() {
+  const monthlyTotals = {}; const catTotals = {}; let grand = 0;
+  MONTHS.forEach(m => monthlyTotals[m] = 0);
+  Object.entries(CATEGORIES).forEach(([cat, ids]) => {
+    catTotals[cat] = 0;
+    ids.forEach(rid => {
+      MONTHS.forEach(m => {
+        const el = document.getElementById(`${rid}_${m}`);
+        if (el) { const v=parseInt(el.value)||0; catTotals[cat]+=v; monthlyTotals[m]+=v; grand+=v; }
+      });
+    });
+  });
+
+  // Category grid
+  const catEl = document.getElementById('categoryTotals');
+  catEl.innerHTML = '';
+  Object.entries(catTotals).forEach(([cat,total],i) => {
+    const c = CAT_COLORS[i%CAT_COLORS.length];
+    const d = document.createElement('div');
+    d.className='cat-card';
+    d.style.cssText=`background:${c.bg};border:1.5px solid ${c.border}`;
+    d.innerHTML=`<div class="cat-val" style="color:${c.txt}">${total}</div><div class="cat-label" style="color:${c.txt}">${cat}</div>`;
+    catEl.appendChild(d);
+  });
+
+  // Bar chart
+  const chartEl = document.getElementById('monthlyChart');
+  chartEl.innerHTML = '';
+  const maxVal = Math.max(...Object.values(monthlyTotals),1);
+  MONTHS.forEach((m,i) => {
+    const val = monthlyTotals[m];
+    const h   = Math.max((val/maxVal)*100, val>0?3:1);
+    const w   = document.createElement('div');
+    w.className='chart-bar-wrap';
+    w.innerHTML=`<div class="chart-bar-col"><div class="chart-bar" style="height:${h}%"><div class="bar-tip">${MONTH_NAMES[i]}: ${val}</div></div></div>`;
+    chartEl.appendChild(w);
+  });
+
+  // Stats
+  document.getElementById('totalYear').textContent = grand.toLocaleString();
+  let hi={name:'—',val:-1}, lo={name:'—',val:Infinity};
+  MONTHS.forEach((m,i) => {
+    const v=monthlyTotals[m];
+    if(v>hi.val) hi={name:MONTH_NAMES[i],val:v};
+    if(v<lo.val) lo={name:MONTH_NAMES[i],val:v};
+  });
+  document.getElementById('highestMonth').textContent = grand>0?`${hi.name} (${hi.val})`:'—';
+  document.getElementById('lowestMonth').textContent  = grand>0?`${lo.name} (${lo.val})`:'—';
+
+  // Summary text
+  const year=document.getElementById('inputYear').value||'the year';
+  const bhw =document.getElementById('inputBHW').value||'the BHW';
+  const bar =document.getElementById('inputBarangay').value||'the barangay';
+  let txt = grand>0
+    ? `For ${year}, ${bhw} from ${bar} recorded a total of ${grand.toLocaleString()} accomplishments. `
+    : 'No data entered yet.';
+  if (grand>0) {
+    const top = Object.entries(catTotals).sort((a,b)=>b[1]-a[1])[0];
+    txt += `Highest category: ${top[0]} (${top[1]}). Performance peaked in ${hi.name} (${hi.val}); lowest in ${lo.name} (${lo.val}). `;
+    const mod=['fp_pills','fp_injectables','fp_btl','fp_vasectomy','fp_implant','fp_condom'].filter(k=>document.getElementById(k).checked).map(k=>FP_LABELS[k]);
+    const nat=['fp_cm','fp_bbt','fp_stm','fp_sdm'].filter(k=>document.getElementById(k).checked).map(k=>FP_LABELS[k]);
+    if (mod.length||nat.length) {
+      txt+='FP methods: ';
+      if(mod.length) txt+=`Modern (${mod.join(', ')})`;
+      if(mod.length&&nat.length) txt+=' and ';
+      if(nat.length) txt+=`Natural (${nat.join(', ')})`;
+      txt+='.';
+    }
+  }
+  document.getElementById('summaryText').textContent = txt;
+}
+
+function collectData() {
+  const tableValues = {};
+  TABLE_ROWS.forEach(row => {
+    if (!row.id) return;
+    if (row.computed) return; // skip parent rows — they have no inputs, values derived from sub-rows
+    tableValues[row.id] = {};
+    MONTHS.forEach(m => {
+      const el = document.getElementById(`${row.id}_${m}`);
+      tableValues[row.id][m] = el ? (parseInt(el.value)||0) : 0;
+    });
+  });
+  const fp = {};
+  FP_KEYS.forEach(k => { fp[k] = document.getElementById(k).checked; });
+  return {
+    header: {
+      year:     document.getElementById('inputYear').value,
+      bhw_name: document.getElementById('inputBHW').value,
+      barangay: document.getElementById('inputBarangay').value,
+      area:     document.getElementById('inputArea').value
+    },
+    tableValues, familyPlanning: fp
+  };
+}
+
+function populateForm(report) {
+  document.getElementById('inputYear').value     = report.header.year     || '';
+  document.getElementById('inputBHW').value      = report.header.bhw_name || '';
+  document.getElementById('inputBarangay').value = report.header.barangay || '';
+  document.getElementById('inputArea').value     = report.header.area     || '';
+  TABLE_ROWS.forEach(row => {
+    if (!row.id) return;
+    MONTHS.forEach(m => {
+      const el = document.getElementById(`${row.id}_${m}`);
+      if (el) { const v=report.tableValues?.[row.id]?.[m]??0; el.value=v; el.classList.toggle('has-value',v>0); }
+    });
+    updateRowTotal(row.id);
+  });
+  FP_KEYS.forEach(k => { const el=document.getElementById(k); if(el) el.checked=!!report.familyPlanning?.[k]; });
+  // Refresh all computed parent rows
+  TABLE_ROWS.forEach(row => { if (row.computed) updateComputedRow(row); });
+  updateSummary();
+}
+
+function clearForm() {
+  document.getElementById('inputYear').value     = new Date().getFullYear();
+  document.getElementById('inputBHW').value      = '';
+  document.getElementById('inputBarangay').value = '';
+  document.getElementById('inputArea').value     = '';
+  TABLE_ROWS.forEach(row => {
+    if (!row.id) return;
+    if (row.computed) {
+      // Reset computed month cells and total
+      MONTHS.forEach(m => { const el=document.getElementById(`${row.id}_${m}_computed`); if(el) el.textContent='0'; });
+      const tc=document.getElementById(`${row.id}_total`); if(tc) tc.textContent='0';
+    } else {
+      MONTHS.forEach(m => { const el=document.getElementById(`${row.id}_${m}`); if(el){el.value=0;el.classList.remove('has-value');} });
+      const tc=document.getElementById(`${row.id}_total`); if(tc) tc.textContent='0';
+    }
+  });
+  FP_KEYS.forEach(k => { const el=document.getElementById(k); if(el) el.checked=false; });
+  currentReportId = null;
+  document.getElementById('deleteBtn').style.display = 'none';
+  updateSummary();
+}
+
+/* ---- Report list ---- */
+async function loadReportList() {
+  try {
+    allReports = await api('GET', '/reports');
+    const sel  = document.getElementById('reportSelector');
+    sel.innerHTML = '<option value="new">+ New Report</option>';
+    allReports.sort((a,b)=>b.year-a.year).forEach(r => {
+      const opt = document.createElement('option');
+      opt.value = r.id;
+      opt.textContent = `${r.year} — ${r.bhw_name} (${r.barangay})`;
+      sel.appendChild(opt);
+    });
+  } catch (err) {
+    showToast('Could not load reports: ' + err.message, true);
+  }
+}
+
+async function loadSelectedReport() {
+  const val = document.getElementById('reportSelector').value;
+  if (val === 'new') { clearForm(); return; }
+  try {
+    const report = await api('GET', `/reports/${val}`);
+    currentReportId = report.id;
+    populateForm(report);
+    document.getElementById('deleteBtn').style.display = '';
+  } catch (err) {
+    showToast(err.message, true);
+  }
+}
+
+/* ---- Save ---- */
+async function saveReport() {
+  const data = collectData();
+  if (!data.header.year)            { showToast('Please enter a Year.', true); return; }
+  if (!data.header.bhw_name.trim()) { showToast('Please enter the BHW name.', true); return; }
+  if (!data.header.barangay.trim()) { showToast('Please enter the Barangay.', true); return; }
+  try {
+    if (currentReportId) {
+      await api('PUT', `/reports/${currentReportId}`, data);
+      showToast('Report updated successfully!');
+    } else {
+      const result = await api('POST', '/reports', data);
+      currentReportId = result.id;
+      document.getElementById('deleteBtn').style.display = '';
+      showToast('Report saved successfully!');
+    }
+    await loadReportList();
+    document.getElementById('reportSelector').value = currentReportId;
+  } catch (err) {
+    showToast(err.message, true);
+  }
+}
+
+/* ---- Delete ---- */
+let delTimer = null;
+async function deleteCurrentReport() {
+  if (!currentReportId) return;
+  const btn = document.getElementById('deleteBtn');
+  if (btn.dataset.confirm === 'true') {
+    clearTimeout(delTimer);
+    try {
+      await api('DELETE', `/reports/${currentReportId}`);
+      showToast('Report deleted.');
+      clearForm();
+      await loadReportList();
+      document.getElementById('reportSelector').value = 'new';
+    } catch (err) { showToast(err.message, true); }
+    btn.dataset.confirm = 'false';
+    btn.textContent = 'Delete';
+  } else {
+    btn.textContent = 'Confirm Delete?';
+    btn.dataset.confirm = 'true';
+    delTimer = setTimeout(() => { btn.textContent='Delete'; btn.dataset.confirm='false'; }, 3000);
+  }
+}
+
+/* ---- Export CSV ---- */
+function exportCSV() {
+  const d = collectData();
+  let csv = `BHW Monthly Accomplishment Report\nYear,${d.header.year}\nBHW Name,${d.header.bhw_name}\nBarangay,${d.header.barangay}\nArea,${d.header.area}\n\n`;
+  csv += 'Program / Activity,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec,Total\n';
+  TABLE_ROWS.forEach(row => {
+    if (row.isHeader) { csv+=`"${row.category}",,,,,,,,,,,,,\n`; }
+    else if (row.id) {
+      let t=0,line=`"${row.label.trim()}"`;
+      MONTHS.forEach(m=>{const v=d.tableValues[row.id]?.[m]||0;line+=`,${v}`;t+=v;});
+      csv+=line+`,${t}\n`;
+    }
+  });
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=`BHW_Report_${d.header.year||'export'}.csv`;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+  showToast('CSV exported!');
+}
+
+/* ---- Toast ---- */
+let toastTimer = null;
+function showToast(msg, isErr=false) {
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.toggle('error',isErr);
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+/* ---- INIT ---- */
+initializeTable();
+updateSummary();
+loadReportList();
+</script>
+</body>
+</html>
