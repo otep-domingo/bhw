@@ -21,24 +21,24 @@ if (isset($_SESSION['month_year_id'])) {
 
                 <label for="month-year">FHSIS Report for:</label>
                 <div class="month-year" id="month-year">
-                    <input type="text" name="fhsis-month" id="brgy-name" class="bgry-int" value="<?php echo $row['report_for_month']; ?>" readonly>
-                    <input type="number" name="fhsis-year" class="year-int" value="<?php echo $row['report_year']; ?>" readonly>
+                    <input type="text" name="fhsis-month" id="fhsis_month" class="bgry-int" value="<?php echo $row['report_for_month']; ?>" readonly>
+                    <input type="number" name="fhsis-year" id="fhsis_year" class="year-int" value="<?php echo $row['report_year']; ?>" readonly>
                 </div>
 
                 <label for="brgy-name">Name of Baranggay:</label>
-                <input type="text" name="barangay-name" id="brgy-name" class="bgry-int" value="<?php echo $row['brgy_name']; ?>" readonly>
+                <input type="text" name="barangay-name" id="brgy_name" class="bgry-int" value="<?php echo $row['brgy_name']; ?>" readonly>
 
                 <label for="bhs-name">Name of BHS:</label>
-                <input type="text" name="bhs-name" id="bhs-name" class="bhs-int" value="<?php echo $row['bhs_name']; ?>" readonly>
+                <input type="text" name="bhs-name" id="bhs_name" class="bhs-int" value="<?php echo $row['bhs_name']; ?>" readonly>
 
                 <label for="city-province">City and Province:</label>
                 <div class="city-province" id="city-province">
-                    <input type="text" name="municipality" class="city-int" value="<?php echo $row['city_name']; ?>" readonly>
-                    <input type="text" name="province" class="province-int" value="<?php echo $row['province_name']; ?>" readonly>
+                <input type="text" name="municipality" id="municipality" class="city-int" value="<?php echo $row['city_name']; ?>" readonly>
+                <input type="text" name="province" id="province" class="province-int" value="<?php echo $row['province_name']; ?>" readonly>
                 </div>
 
                 <label for="projected-population">Projected Population of the Year:</label>
-                <input type="number" name="population" id="projected-population" class="population-int" min="0" value="<?php echo $row['projected_population_year']; ?>" readonly>
+                <input type="number" name="population" id="projected_population" class="population-int" min="0" value="<?php echo $row['projected_population_year']; ?>" readonly>
             </div>
 
             <div class="acknowledgement">
@@ -51,23 +51,21 @@ if (isset($_SESSION['month_year_id'])) {
                 </div>
 
                 <label for="prepared-by">Prepared by:</label>
-                <input type="text" name="prepared-by" id="prepared-by" class="prepared-int" value="<?php echo $row['prepared_by']; ?>" readonly>
+                <input type="text" name="prepared-by" id="prepared_by" class="prepared-int" value="<?php echo $row['prepared_by']; ?>" readonly>
 
                 <label for="verified-by">Verified by:</label>
-                <input type="text" name="verified-by" id="verified-by" class="verified-int" value="<?php echo $row['verified_by']; ?>" readonly>
-
+                <input type="text" name="verified-by" id="verified_by" class="verified-int" value="<?php echo $row['verified_by']; ?>" readonly>
+            
                 <label for="position">Position:</label>
                 <input type="text" name="position" id="position" class="position-int" value="<?php echo $row['position']; ?>" readonly>
             </div>
-
-            <div class="create-new edit-button">Edit</div>
+            
+            <!-- <div class="create-new edit-button">Edit</div> -->
         </div>
-        
-    <?php }
-} else { ?>
-    <div class="sidebar-forms">
-        <div class="report-info">
-            <div class="report-title">
+    <?php } } else { ?>
+        <div class="sidebar-forms" id="sidebar-forms">
+            <div class="report-info">
+                <div class="report-title">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
                     <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
                 </svg>

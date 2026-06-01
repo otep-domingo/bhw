@@ -1,3 +1,5 @@
+const MONTH_YEAR_ID = document.getElementById('monthYearId').value;
+
 function collectTableRows(tbodyId) {
   const tbody = document.getElementById(tbodyId);
   if (!tbody) return [];
@@ -39,6 +41,7 @@ async function saveSectionH() {
   const payload = {
     // If your form has a record_id (edit mode), include it:
     // record_id: document.getElementById('record-id')?.value ?? null,
+    record_id: MONTH_YEAR_ID,
     mortality: collectTableRows('vital-mortality-body'),
     natality:  collectTableRows('vital-natality-body'),
   };
@@ -90,6 +93,7 @@ async function saveSectionG() {
   const payload = {
     // If your form has a record_id (edit mode), include it:
     // record_id: document.getElementById('record-id')?.value ?? null,
+    record_id: MONTH_YEAR_ID,
     filariasis: collectTableRows('g-filariasis-body'),
     rabies:  collectTableRows('g-rabies-body'),
     schistosomiasis:  collectTableRows('g-schistosomiasis-body'),
@@ -140,6 +144,7 @@ async function saveSectionF() {
   const payload = {
     // If your form has a record_id (edit mode), include it:
     // record_id: document.getElementById('record-id')?.value ?? null,
+    record_id: MONTH_YEAR_ID,
     waterBody: collectTableRows('f-water-body'),
     sanitationBody:  collectTableRows('f-sanitation-body'),
   };
@@ -186,6 +191,7 @@ async function saveSectionE() {
   const payload = {
     // If your form has a record_id (edit mode), include it:
     // record_id: document.getElementById('record-id')?.value ?? null,
+    record_id: MONTH_YEAR_ID,
     e1: collectTableRows('e1-body'),
     e2: collectTableRows('e2-body'),
     e3: collectTableRows('e3-body'),
@@ -238,6 +244,7 @@ async function saveSectionD() {
   const payload = {
     // If your form has a record_id (edit mode), include it:
     // record_id: document.getElementById('record-id')?.value ?? null,
+    record_id: MONTH_YEAR_ID,
     oral: collectTableRows('oral-body'),
   };
 console.log(payload);
@@ -283,6 +290,7 @@ async function saveSectionC() {
   const payload = {
     // If your form has a record_id (edit mode), include it:
     // record_id: document.getElementById('record-id')?.value ?? null,
+    record_id: MONTH_YEAR_ID,
     a1: collectTableRows('immun-a1-body'),
     a2: collectTableRows('immun-a2-body'),
     a3: collectTableRows('immun-a3-body'),
@@ -333,6 +341,7 @@ async function saveSectionB() {
   const payload = {
     // If your form has a record_id (edit mode), include it:
     // record_id: document.getElementById('record-id')?.value ?? null,
+    record_id: MONTH_YEAR_ID,
     prenatal: collectTableRows('prenatal-body'),
   };
 console.log(payload);
@@ -378,6 +387,7 @@ async function saveSectionA() {
   const payload = {
     // If your form has a record_id (edit mode), include it:
     // record_id: document.getElementById('record-id')?.value ?? null,
+    record_id: MONTH_YEAR_ID,
     demand: collectTableRows('demand-body'),
     modern: collectTableRows('modern-fp-body'),
   };
@@ -391,6 +401,7 @@ console.log(payload);
   try {
     const response = await fetch('../controller/save_sectionA.php', {
       method:  'POST',
+      credentials: "same-origin",
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify(payload),
     });

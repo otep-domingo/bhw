@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 // ── 1. Database credentials ───────────────────────────────────────────────────
@@ -25,16 +24,19 @@ if (json_last_error() !== JSON_ERROR_NONE || $data === null) {
     exit;
 }
 
-$recordId  = isset($data['record_id']) ? (int) $data['record_id'] : 1; //<-- change the "1" to NULL once there is a working record_id. record_id can also be set via session
+$recordId = $data['record_id'] ?? null;
+
+if (!$recordId) {
+    http_response_code(400);
+    echo json_encode([
+        'success' => false,
+        'message' => 'record_id missing.',
+    ]);
+    exit;
+}
+
 $demand = $data['demand'] ?? [];
 $modern_fp  = $data['modern']  ?? [];
-
-// Require at least one section
-/*if (empty($mortality) && empty($natality)) {
-    http_response_code(400);
-    echo json_encode(['success' => false, 'message' => 'No data provided.']);
-    exit;
-}*/
 
 // ── 4. Connect (mysqli) ───────────────────────────────────────────────────────
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); // throw exceptions on error
@@ -74,18 +76,7 @@ function execStmt(mysqli $db, string $sql, string $types, array $params): void
 // ── 6. Save inside a transaction ──────────────────────────────────────────────
 try {
     $db->begin_transaction();
-
-    // If record_id supplied, delete existing rows first (replace strategy)
-    if ($recordId !== null) {
-        if (!empty($demand)) {
-            execStmt($db, 'DELETE FROM a_demand WHERE record_id = ?', 'i', [$recordId]);
-        }
-        if (!empty($modern_fp)) {
-            execStmt($db, 'DELETE FROM a_modern WHERE record_id = ?', 'i', [$recordId]);
-        }
-
-    }
-
+    
     // ── demand ─────────────────────────────────────────────────────────────
     if (!empty($demand)) {
         $sqlM = '
@@ -107,7 +98,7 @@ try {
             $remarks = isset($row['col_5']) ? mb_substr(trim((string)$row['col_5']), 0, 1000) : null;
 
             // types: i=record_id, s=indicator, d=age_10_14, d=age_15_19, d=age_20_49, d=total, s=remarks
-            execStmt($db, $sqlM, 'isdddds', [$rid, $ind, $age_10_14, $age_15_19, $age_20_49, $total, $remarks]);
+            execStmt($db, $sqlM, 'ssdddds', [$rid, $ind, $age_10_14, $age_15_19, $age_20_49, $total, $remarks]);
         }
     }
 
@@ -175,7 +166,7 @@ try {
             $new_present_total      = toFloat($row['col_24'] ?? null);  
 
             // types: i=record_id, s=indicator, d=age_10_14, d=age_15_19, d=age_20_49, d=total, s=remarks
-            execStmt($db, $sqlM, 'isdddddddddddddddddddddddd', [
+            execStmt($db, $sqlM, 'ssdddddddddddddddddddddddd', [
                                             $rid,
                                             $ind,
                                             $current_begin_10_14,

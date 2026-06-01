@@ -1,19 +1,4 @@
 <?php
-/**
- * save_vital_statistics.php
- *
- * Receives a JSON POST body with:
- *   {
- *     "record_id": 42,          // optional; omit or null for new records
- *     "mortality": [ { "indicator":"...", "age_10_14":0, ... }, ... ],
- *     "natality":  [ { "indicator":"...", "male":0, ... }, ... ]
- *   }
- *
- * Returns:
- *   { "success": true }
- *   { "success": false, "message": "..." }
- */
-
 declare(strict_types=1);
 
 // ── 1. Database credentials ───────────────────────────────────────────────────
@@ -39,7 +24,16 @@ if (json_last_error() !== JSON_ERROR_NONE || $data === null) {
     exit;
 }
 
-$recordId  = isset($data['record_id']) ? (int) $data['record_id'] : 2;
+$recordId = $data['record_id'] ?? null;
+
+if (!$recordId) {
+    http_response_code(400);
+    echo json_encode([
+        'success' => false,
+        'message' => 'record_id missing.',
+    ]);
+    exit;
+}
 $prenatal = $data['prenatal'] ?? [];
 
 // ── 4. Connect (mysqli) ───────────────────────────────────────────────────────
@@ -81,13 +75,6 @@ function execStmt(mysqli $db, string $sql, string $types, array $params): void
 try {
     $db->begin_transaction();
 
-    // If record_id supplied, delete existing rows first (replace strategy)
-    if ($recordId !== null) {
-        if (!empty($prenatal)) {
-            execStmt($db, 'DELETE FROM b_prenatal WHERE record_id = ?', 'i', [$recordId]);
-        }
-    }
-
     // ── Mortality ─────────────────────────────────────────────────────────────
     if (!empty($prenatal)) {
         $sqlM = '
@@ -109,7 +96,7 @@ try {
             $remarks = isset($row['col_5']) ? mb_substr(trim((string)$row['col_5']), 0, 1000) : null;
 
             // types: i=record_id, s=indicator, d=age_10_14, d=age_15_19, d=age_20_49, d=total, s=remarks
-            execStmt($db, $sqlM, 'isdddds', [$rid, $ind, $a1014, $a1519, $a2049, $total, $remarks]);
+            execStmt($db, $sqlM, 'ssdddds', [$rid, $ind, $a1014, $a1519, $a2049, $total, $remarks]);
         }
     }
 

@@ -20,7 +20,7 @@
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-secondary continue-btn"
-                    name="submitReportInformation">Continue</button>
+                    onclick="createReportInformation()">Continue</button>
             </div>
         </div>
     </div>
