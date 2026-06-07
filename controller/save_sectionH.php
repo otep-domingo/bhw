@@ -36,8 +36,8 @@ if (!$recordId) {
     ]);
     exit;
 }
-$waterBody = $data['waterBody'] ?? [];
-$sanitationBody  = $data['sanitationBody']  ?? [];
+$mortality = $data['mortality'] ?? [];
+$natality  = $data['natality']  ?? [];
 
 // Require at least one section
 /*if (empty($mortality) && empty($natality)) {
@@ -84,57 +84,62 @@ function execStmt(mysqli $db, string $sql, string $types, array $params): void
 // ── 6. Save inside a transaction ──────────────────────────────────────────────
 try {
     $db->begin_transaction();
-
     // If record_id supplied, delete existing rows first (replace strategy)
     if ($recordId !== null) {
-        if (!empty($waterBody)) {
-            execStmt($db, 'DELETE FROM f_water WHERE record_id = ?', 'i', [$recordId]);
+        if (!empty($mortality)) {
+            execStmt($db, 'DELETE FROM vital_mortality WHERE record_id = ?', 'i', [$recordId]);
         }
-        if (!empty($sanitationBody)) {
-            execStmt($db, 'DELETE FROM f_sanitation WHERE record_id = ?', 'i', [$recordId]);
+        if (!empty($natality)) {
+            execStmt($db, 'DELETE FROM vital_natality WHERE record_id = ?', 'i', [$recordId]);
         }
     }
 
-
-    // ── Filariasis ─────────────────────────────────────────────────────────────
-    if (!empty($waterBody)) {
+    // ── Mortality ─────────────────────────────────────────────────────────────
+    if (!empty($mortality)) {
         $sqlM = '
-            INSERT INTO f_water
-                (record_id, indicator, count, remarks)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO vital_mortality
+                (record_id, indicator, age_10_14, age_15_19, age_20_49, total, remarks)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
         ';
 
-        foreach ($waterBody as $row) {
+        foreach ($mortality as $row) {
             $indicator = trim((string)($row['indicator'] ?? ''));
             if ($indicator === '') continue; // skip blank rows
 
             $rid     = $recordId;
             $ind     = mb_substr($indicator, 0, 500);
-            $count   = toFloat($row['col_1']     ?? null);
-            $remarks = isset($row['col_2']) ? mb_substr(trim((string)$row['col_2']), 0, 1000) : null;
+            $a1014   = toFloat($row['col_1'] ?? null);
+            $a1519   = toFloat($row['col_2'] ?? null);
+            $a2049   = toFloat($row['col_3'] ?? null);
+            $total   = toFloat($row['col_4']     ?? null);
+            $remarks = isset($row['col_5']) ? mb_substr(trim((string)$row['col_5']), 0, 1000) : null;
 
             // types: i=record_id, s=indicator, d=age_10_14, d=age_15_19, d=age_20_49, d=total, s=remarks
-            execStmt($db, $sqlM, 'ssds', [$rid, $ind, $count, $remarks]);
+            execStmt($db, $sqlM, 'ssdddds', [$rid, $ind, $a1014, $a1519, $a2049, $total, $remarks]);
         }
     }
-    // ── Rabies ─────────────────────────────────────────────────────────────
-    if (!empty($sanitationBody)) {
-        $sqlM = '
-            INSERT INTO f_sanitation
-                (record_id, indicator,count, remarks)
-            VALUES (?, ?, ?, ?)
+
+    // ── Natality ──────────────────────────────────────────────────────────────
+    if (!empty($natality)) {
+        $sqlN = '
+            INSERT INTO vital_natality
+                (record_id, indicator, male, female, total, remarks)
+            VALUES (?, ?, ?, ?, ?, ?)
         ';
 
-        foreach ($sanitationBody as $row) {
+        foreach ($natality as $row) {
             $indicator = trim((string)($row['indicator'] ?? ''));
-            if ($indicator === '') continue; // skip blank rows
+            if ($indicator === '') continue;
 
             $rid     = $recordId;
             $ind     = mb_substr($indicator, 0, 500);
-            $count   = toFloat($row['col_1']     ?? null);
-            $remarks = isset($row['col_2']) ? mb_substr(trim((string)$row['col_2']), 0, 1000) : null;
+            $male    = toFloat($row['col_1']   ?? null);
+            $female  = toFloat($row['col_2'] ?? null);
+            $total   = toFloat($row['col_3']  ?? null);
+            $remarks = isset($row['col_4']) ? mb_substr(trim((string)$row['col_4']), 0, 1000) : null;
 
-            execStmt($db, $sqlM, 'ssds', [$rid, $ind, $count, $remarks]);
+            // types: i=record_id, s=indicator, d=male, d=female, d=total, s=remarks
+            execStmt($db, $sqlN, 'ssddds', [$rid, $ind, $male, $female, $total, $remarks]);
         }
     }
 

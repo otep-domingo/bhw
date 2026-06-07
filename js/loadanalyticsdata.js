@@ -1,3 +1,4 @@
+
 function collectTableRowsInputField(tbodyId) {
     const tbody = document.getElementById(tbodyId);
     if (!tbody) return [];
@@ -31,14 +32,8 @@ function collectTableRowsInputField(tbodyId) {
 }
 
 async function populateSectionsAToH(s) {
+const MONTH_YEAR_ID = document.getElementById('monthYearId').value;
 
-    switch (s) {
-        case 'A':
-
-            break;
-        case 'B':
-            break;
-    }
     //process section A
     //get all the fields in each section
     const textfields = {
@@ -80,7 +75,8 @@ async function populateSectionsAToH(s) {
     };
 
     try {
-        const fetchSection = { section: s };
+        const fetchSection = { section: s, record_id:MONTH_YEAR_ID };
+        console.log("monthly id: ", MONTH_YEAR_ID);
         const response = await fetch('../controller/fetchanalyticsdata.php', {
             method: 'POST',
             headers: {
@@ -88,7 +84,7 @@ async function populateSectionsAToH(s) {
             },
             body: JSON.stringify(fetchSection)
         });
-
+        console.log("response load: ",response);
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }

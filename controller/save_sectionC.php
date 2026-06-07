@@ -3,7 +3,8 @@
 declare(strict_types=1);
 
 // ── 1. Database credentials ───────────────────────────────────────────────────
-require '../model/constants.php';
+//require '../model/constants.php';
+require 'checkRecordId.php';
 
 // ── 2. Headers ────────────────────────────────────────────────────────────────
 header('Content-Type: application/json; charset=utf-8');
@@ -25,7 +26,7 @@ if (json_last_error() !== JSON_ERROR_NONE || $data === null) {
     exit;
 }
 
-$recordId = $data['record_id'] ?? null;
+$recordId = checkRecordId($data['record_id']);
 
 if (!$recordId) {
     http_response_code(400);
@@ -80,7 +81,27 @@ function execStmt(mysqli $db, string $sql, string $types, array $params): void
 // ── 6. Save inside a transaction ──────────────────────────────────────────────
 try {
     $db->begin_transaction();
-    
+      // If record_id supplied, delete existing rows first (replace strategy)
+    if ($recordId !== null) {
+        if (!empty($immun_a1)) {
+            execStmt($db, 'DELETE FROM c_a1 WHERE record_id = ?', 'i', [$recordId]);
+        }
+        if (!empty($immun_a2)) {
+            execStmt($db, 'DELETE FROM c_a2 WHERE record_id = ?', 'i', [$recordId]);
+        }
+        if (!empty($immun_a3)) {
+            execStmt($db, 'DELETE FROM c_a3 WHERE record_id = ?', 'i', [$recordId]);
+        }
+        if (!empty($immun_a4)) {
+            execStmt($db, 'DELETE FROM c_a4 WHERE record_id = ?', 'i', [$recordId]);
+        }
+        if (!empty($nutrition)) {
+            execStmt($db, 'DELETE FROM c_nutrition WHERE record_id = ?', 'i', [$recordId]);
+        }
+        if (!empty($sick)) {
+            execStmt($db, 'DELETE FROM c_sick WHERE record_id = ?', 'i', [$recordId]);
+        }
+    }
     // ── a1 ─────────────────────────────────────────────────────────────
     if (!empty($immun_a1)) {
         $sqlM = '

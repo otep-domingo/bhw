@@ -45,7 +45,9 @@ async function saveSectionH() {
     mortality: collectTableRows('vital-mortality-body'),
     natality:  collectTableRows('vital-natality-body'),
   };
-console.log(payload);
+
+
+console.log("sectionH: ",payload);
   if (payload.mortality.length === 0 && payload.natality.length === 0) {
     status.textContent = '⚠ No data found to save.';
     status.className   = 'text-sm font-medium text-yellow-600';
@@ -58,7 +60,7 @@ console.log(payload);
   status.textContent = '';
 
   try {
-    const response = await fetch('../controller/save_vital_statistics.php', {
+    const response = await fetch('../controller/save_sectionH.php', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify(payload),
@@ -407,6 +409,7 @@ console.log(payload);
     });
 
     const result = await response.json();
+    console.log(result);
 
     if (result.success) {
       status.textContent = result.message;
@@ -417,7 +420,7 @@ console.log(payload);
       status.className   = 'text-sm font-medium text-red-600';
     }
   } catch (err) {
-    console.error(err);
+    console.error("error",err.message);
     status.textContent = '✗ Network error. Please try again.';
     status.className   = 'text-sm font-medium text-red-600';
   } finally {

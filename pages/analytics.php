@@ -91,7 +91,7 @@
                 </svg>
                 Export PDF
               </button>
-              <button class="btn-export generate-analytics" onclick="generateAnalytics()">
+              <button class="btn-export generate-analytics" onclick="window.open('analyticsview.php', '_blank')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16">
                   <path d="M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/>
                 </svg>
@@ -1005,6 +1005,7 @@
     <script src="../js/createNew.js"></script>
     <script src="../js/search.js"></script>
     <script src="../js/analytics-sections.js"></script>
+    <script src="../js/loadanalyticsdata.js"></script>
     <script>
       function closeToast(el) {
         const toast = el.closest('.toast-container');
@@ -1018,6 +1019,11 @@
         }, 300);
       }
     </script>
+     <?php
+    if (isset($_SESSION['month_year_id'])){
+      echo '<script>populateSectionsAToH(\'A\')</script>';
+    }
+    ?>
 </body>
 
 </html>

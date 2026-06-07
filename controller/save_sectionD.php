@@ -3,7 +3,8 @@
 declare(strict_types=1);
 
 // ── 1. Database credentials ───────────────────────────────────────────────────
-require '../model/constants.php';
+//require '../model/constants.php';
+require 'checkRecordId.php';
 
 // ── 2. Headers ────────────────────────────────────────────────────────────────
 header('Content-Type: application/json; charset=utf-8');
@@ -25,7 +26,7 @@ if (json_last_error() !== JSON_ERROR_NONE || $data === null) {
     exit;
 }
 
-$recordId = $data['record_id'] ?? null;
+$recordId = checkRecordId($data['record_id']);
 
 if (!$recordId) {
     http_response_code(400);
@@ -82,6 +83,12 @@ function execStmt(mysqli $db, string $sql, string $types, array $params): void
 // ── 6. Save inside a transaction ──────────────────────────────────────────────
 try {
     $db->begin_transaction();
+    if ($recordId !== null) {
+        if (!empty($oral)) {
+            execStmt($db, 'DELETE FROM d_oral WHERE record_id = ?', 'i', [$recordId]);
+        }
+    }
+
 
     // ── Filariasis ─────────────────────────────────────────────────────────────
     if (!empty($oral)) {
@@ -109,7 +116,6 @@ try {
 
     $db->commit();
     echo json_encode(['success' => true, 'message' => 'Records saved successfully.']);
-
 } catch (RuntimeException | mysqli_sql_exception $e) {
     $db->rollback();
     http_response_code(500);

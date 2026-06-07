@@ -3,7 +3,8 @@
 declare(strict_types=1);
 
 // ── 1. Database credentials ───────────────────────────────────────────────────
-require '../model/constants.php';
+//require '../model/constants.php';
+require 'checkRecordId.php';
 
 // ── 2. Headers ────────────────────────────────────────────────────────────────
 header('Content-Type: application/json; charset=utf-8');
@@ -25,7 +26,7 @@ if (json_last_error() !== JSON_ERROR_NONE || $data === null) {
     exit;
 }
 
-$recordId = $data['record_id'] ?? null;
+$recordId = checkRecordId($data['record_id']);
 
 if (!$recordId) {
     http_response_code(400);
@@ -87,6 +88,28 @@ function execStmt(mysqli $db, string $sql, string $types, array $params): void
 // ── 6. Save inside a transaction ──────────────────────────────────────────────
 try {
     $db->begin_transaction();
+    // If record_id supplied, delete existing rows first (replace strategy)
+    if ($recordId !== null) {
+        if (!empty($filariasis)) {
+            execStmt($db, 'DELETE FROM g_filariasis WHERE record_id = ?', 'i', [$recordId]);
+        }
+        if (!empty($rabies)) {
+            execStmt($db, 'DELETE FROM g_rabies WHERE record_id = ?', 'i', [$recordId]);
+        }
+        if (!empty($schistosomiasis)) {
+            execStmt($db, 'DELETE FROM g_schistosomiasis WHERE record_id = ?', 'i', [$recordId]);
+        }
+        if (!empty($sth)) {
+            execStmt($db, 'DELETE FROM g_sth WHERE record_id = ?', 'i', [$recordId]);
+        }
+        if (!empty($leprosy)) {
+            execStmt($db, 'DELETE FROM g_leprosy WHERE record_id = ?', 'i', [$recordId]);
+        }
+        if (!empty($hiv)) {
+            execStmt($db, 'DELETE FROM g_hiv WHERE record_id = ?', 'i', [$recordId]);
+        }
+    }
+
 
     // ── Filariasis ─────────────────────────────────────────────────────────────
     if (!empty($filariasis)) {
