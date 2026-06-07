@@ -1,3 +1,4 @@
+<link href="../../src/output.css" rel="stylesheet">
 <div class="outer-container">
     <div class="inner-container">
     <div class="title-selection">Let's get started!</div>

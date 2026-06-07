@@ -263,7 +263,7 @@ function collectData() {
 
 // Load data into form
 async function loadData(selectedId) {
-    alert(selectedId);
+    //alert(selectedId);
     //if (!data) return;
 
     //the selectedId here handles the ID of the selected monthly report from the dropdown
@@ -344,7 +344,7 @@ function clearForm() {
 }
 
 // Show toast notification
-function showToast(message) {
+/*function showToast(message) {
     const toast = document.getElementById('toast');
     const toastMessage = document.getElementById('toastMessage');
     toastMessage.textContent = message;
@@ -352,11 +352,36 @@ function showToast(message) {
     setTimeout(() => {
         toast.classList.add('translate-y-20', 'opacity-0');
     }, 3000);
+}*/
+//------------TOAST/MODAL DIALOG
+function showToast(message = 'Report saved successfully!') {
+    const toast = document.getElementById('toast');
+    const toastBox = document.getElementById('toastBox');
+    document.getElementById('toastMessage').textContent = message;
+
+    toast.classList.remove('opacity-0', 'pointer-events-none');
+    toastBox.classList.remove('scale-95');
+    toastBox.classList.add('scale-100');
 }
+
+function closeToast() {
+    const toast = document.getElementById('toast');
+    const toastBox = document.getElementById('toastBox');
+
+    toast.classList.add('opacity-0', 'pointer-events-none');
+    toastBox.classList.remove('scale-100');
+    toastBox.classList.add('scale-95');
+}
+
+// Close on backdrop click
+document.getElementById('toast').addEventListener('click', function (e) {
+    if (e.target === this) closeToast();
+});
+//------------END OF MODAL DIALOG
 
 // Update report selector
 async function updateReportSelector() {
-    alert('reload');
+    //alert('reload');
     const selector = document.getElementById('reportSelector');
     const currentValue = selector.value;
 
@@ -422,7 +447,7 @@ function loadSelectedReport() {
     }
 
     //const report = allReports.find(r => r.__backendId === selectedId);
-    alert(selectedId);
+    //alert(selectedId);
     //if (report) {
     //currentReportId = report.__backendId;
     currentReportId = selectedId;
@@ -441,18 +466,8 @@ function loadSelectedReport() {
 
 // Save report
 async function saveReport() {
-    /*if (!window.dataSdk) {
-      showToast('Data storage not available');
-      return;
-    }
-
-    if (allReports.length >= 999 && !currentReportId) {
-      showToast('Maximum limit of 999 reports reached. Please delete some reports first.');
-      return;
-    }*/
 
     const formData = collectData();
-    console.log('monthly data:', formData);
     const now = new Date().toISOString();
 
     const selector = document.getElementById('selectedReportOption');
@@ -460,7 +475,7 @@ async function saveReport() {
     currentReportId = selectedId;
 
     if (currentReportId !== 'new') {
-        console.log('updating record: ', selector);        
+        console.log('updating record: ', selector);
         try {
             const response = await fetch(`../controller/monthlyReport.php/${currentReportId}`, {
                 method: 'PUT',
@@ -471,13 +486,16 @@ async function saveReport() {
             const data = await response.json();
 
             if (!response.ok) {
-                console.error('Error:', data.error);
+                //console.error('Error:', data.error);
+                showToast(data.error);
                 return;
             }
 
-            console.log('update successful data: ',data); // "Report updated successfully."
+            console.log('update successful data: ', data); // "Report updated successfully."
+            showToast("Report successfully updated!")
         } catch (err) {
-            console.error('Request failed:', err);
+            //console.error('Request failed:', err);
+            showToast(err);
         }
 
     } else {
@@ -506,7 +524,8 @@ async function saveReport() {
             });
             const data = await response.json();
             if (!response.ok) {
-                console.error('Error: ', data.error);
+                //console.error('Error: ', data.error);
+                showToast(data.error);
                 return;
             }
             //if successful

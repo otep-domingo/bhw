@@ -1,3 +1,4 @@
+<link href="../../src/output.css" rel="stylesheet">
 <?php
 $month_year_id = $_SESSION['month_year_id'] ?? '';
 $getData = "SELECT * FROM m1brgy_report_info 

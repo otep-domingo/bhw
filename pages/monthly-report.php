@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BHW | Monthly Accomplishment Report</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!--<script src="https://cdn.tailwindcss.com"></script>-->
+  <link href="../src/output.css" rel="stylesheet">
   <script src="/_sdk/element_sdk.js"></script>
   <script src="/_sdk/data_sdk.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&amp;display=swap" rel="stylesheet">
@@ -253,7 +254,24 @@
       <!-- <div id="toast" class="fixed bottom-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 no-print"><span id="toastMessage">Report saved successfully!</span>
       </div>-->
 
-      
+      <!-- Modal Notification -->
+      <div id="toast" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 opacity-0 pointer-events-none transition-opacity duration-300 no-print">
+        <div class="bg-white rounded-xl shadow-xl p-6 size-24  min-h-48 mx-4 transform scale-95 transition-transform duration-300" id="toastBox">
+          <div class="flex items-start gap-3 mb-4">
+            <div class="bg-green-100 rounded-full p-2 shrink-0 mt-0.5">
+              <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <p id="toastMessage" class="text-gray-800 text-sm leading-relaxed max-h-60 overflow-y-auto">Report saved successfully!</p>
+          </div>
+          <div class="flex justify-end">
+            <button onclick="closeToast()" class="w-full bg-green-600 hover:bg-green-700 text-white text-sm font-medium py-2 rounded-lg transition-colors">
+              OK
+            </button>
+          </div>
+        </div>
+      </div>
     </main><!-- Footer -->
     <footer class="bg-green-800 text-white py-4 px-4 text-center text-sm no-print">
       <p>Barangay Health Workers Monthly Accomplishment Report System</p>

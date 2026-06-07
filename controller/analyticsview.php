@@ -1,4 +1,6 @@
 <?php
+session_start();
+require 'checkRecordId.php';
 header("Content-Type: application/json");
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
@@ -76,9 +78,11 @@ function vital_statistics()
 function general($sql)
 {
     //get the id of the report
-    $record_id = 34; //replace with whats in the session
+    //$record_id = 34; //replace with whats in the session
+    $record_id = checkRecordId($_SESSION['month_year_id']);
+    error_log("fetch record id: ",$record_id);
     //connect to database
-    require '../model/constants.php';
+    //require '../model/constants.php';
     //$sql = "SELECT id,record_id,indicator,current_begin_total,current_end_total FROM bhw.a_modern where record_id=?;";
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); // throw exceptions on error
     //perform sql statement

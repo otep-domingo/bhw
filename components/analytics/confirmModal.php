@@ -1,3 +1,4 @@
+<link href="../../src/output.css" rel="stylesheet">
 <div class="modal fade" id="confirmModal" tabindex="-1" 
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
